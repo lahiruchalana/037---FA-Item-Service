@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "dietary_restriction")
-public class DietaryRestriction implements SuperEntity {
+public class DietaryRestriction implements SuperEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "dietary_restriction_seq_id")
@@ -30,6 +30,6 @@ public class DietaryRestriction implements SuperEntity {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @OneToMany(mappedBy = "dietaryRestriction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "dietaryRestrictions", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Food> foods;
 }

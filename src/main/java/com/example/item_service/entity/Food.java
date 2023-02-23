@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -38,6 +40,12 @@ public class Food implements SuperEntity{
     @JoinColumn(name = "cooking_method_id", referencedColumnName = "id")
     private CookingMethod cookingMethod;
 
-//    private Theme (many to many)
+    @ManyToMany
+    @JoinTable(
+            name = "food_theme",
+            joinColumns = @JoinColumn(name = "food_id"),
+            inverseJoinColumns = @JoinColumn(name = "theme_id")
+    )
+    private Set<Theme> themes;
 
 }
