@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +30,6 @@ public class Theme implements SuperEntity{
     @Column(name = "updated_at")
     private String updatedAt;
 
+    @ManyToMany(mappedBy = "themes")
+    private Set<Food> foods;
 }
