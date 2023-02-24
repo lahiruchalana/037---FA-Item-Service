@@ -16,6 +16,13 @@ import java.util.Set;
 @Table(name = "dietary_restriction")
 public class DietaryRestriction implements SuperEntity{
 
+    /**
+     * Dietary Needs: This refers to foods
+     * that are suitable for people with specific dietary requirements, such as gluten-free, vegetarian, or vegan.
+     *
+     * dietary restrictions, such as "gluten-free" or "low-fat."
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "dietary_restriction_seq_id")
     @Column(name = "id", nullable = false)

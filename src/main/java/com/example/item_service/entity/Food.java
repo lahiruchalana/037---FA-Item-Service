@@ -48,4 +48,12 @@ public class Food implements SuperEntity{
     )
     private Set<Theme> themes;
 
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Allergen> allergens;
+
+    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private ExpirationOrBestBefore expirationOrBestBefore;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<CookingInstruction> cookingInstructions;
 }

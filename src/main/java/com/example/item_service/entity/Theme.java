@@ -16,6 +16,10 @@ import java.util.Set;
 @Table(name = "theme")
 public class Theme implements SuperEntity{
 
+    /**
+     * Theme - special theme like seafood, BBQ
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "theme_seq_id")
     @Column(name = "id", nullable = false)

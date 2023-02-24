@@ -16,6 +16,10 @@ import java.util.Set;
 @Table(name = "course")
 public class Course implements SuperEntity {
 
+    /**
+     * Course: This refers to the sequence in which the dishes are served, such as appetizers, entrees, and desserts.
+     */
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "course_seq_id")
     @Column(name = "id", nullable = false)
