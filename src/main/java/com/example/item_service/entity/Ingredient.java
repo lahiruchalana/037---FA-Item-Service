@@ -11,16 +11,20 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "image")
-public class Image {
+@Table(name = "ingredient")
+public class Ingredient {
+
+    /**
+     * Ingredients: The list of all the ingredients used to make the food, listed in order of the amount used.
+     */
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "image_seq_id")
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "ingredient_seq_id")
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "url")
-    private String url;
+    @Column(name = "ingredient_name")
+    private String ingredientName;
 
     @Column(name = "created_at")
     private String createdAt;
@@ -31,5 +35,4 @@ public class Image {
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
     private Food food;
-
 }
