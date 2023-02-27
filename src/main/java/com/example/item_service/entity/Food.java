@@ -26,7 +26,7 @@ public class Food implements SuperEntity{
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "dietary_restrictions_id", referencedColumnName = "id")
-    private DietaryRestriction dietaryRestrictions;
+    private DietaryRestriction dietaryRestriction;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "cuisine_type_id", referencedColumnName = "id")
@@ -62,4 +62,25 @@ public class Food implements SuperEntity{
 
     @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<HealthClaim> healthClaims;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Image> images;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Ingredient> ingredients;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Quantity> quantities;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<NutritionInformation> nutritionInformationSet;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Packaging> packagingSet;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<PlaceOfOrigin> placeOfOriginSet;
+
+    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private PreparationTime preparationTime;
 }

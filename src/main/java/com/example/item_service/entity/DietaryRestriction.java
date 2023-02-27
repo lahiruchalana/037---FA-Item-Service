@@ -37,6 +37,6 @@ public class DietaryRestriction implements SuperEntity{
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @OneToMany(mappedBy = "dietaryRestrictions", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "dietaryRestriction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Food> foods;
 }
