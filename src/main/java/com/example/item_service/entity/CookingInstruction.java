@@ -15,6 +15,7 @@ import lombok.Setter;
 public class CookingInstruction {
 
     /**
+     * For partially cooked or non-cooked foods
      * Cooking Instructions: How to prepare or cook the food, including temperature and time instructions.
      */
 

@@ -56,4 +56,10 @@ public class Food implements SuperEntity{
 
     @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<CookingInstruction> cookingInstructions;
+
+    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private FoodDescription foodDescription;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<HealthClaim> healthClaims;
 }
