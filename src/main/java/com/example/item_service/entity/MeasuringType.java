@@ -39,5 +39,5 @@ public class MeasuringType implements SuperEntity {
     private String updatedAt;
 
     @OneToMany(mappedBy = "measuringType", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<ServingSize> quantities;
+    private Set<ServingSize> servingSize;
 }

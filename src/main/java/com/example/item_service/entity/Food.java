@@ -83,4 +83,19 @@ public class Food implements SuperEntity {
 
     @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private PreparationTime preparationTime;
+
+    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Additives additives;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Appearance> appearances;
+
+    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Availability availability;
+
+    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<NutritionServingSize> nutritionServingSizes;
+
+    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Portion portion;
 }

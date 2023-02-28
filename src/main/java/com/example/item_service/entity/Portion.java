@@ -23,7 +23,7 @@ public class Portion implements SuperEntity {
      */
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "serving_size_seq_id")
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "portion_seq_id")
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -43,5 +43,8 @@ public class Portion implements SuperEntity {
     @Column(name = "updated_at")
     private String updatedAt;
 
+    @OneToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "food_id", referencedColumnName = "id")
+    private Food food;
 
 }

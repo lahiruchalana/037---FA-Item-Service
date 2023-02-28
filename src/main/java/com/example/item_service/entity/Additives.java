@@ -11,11 +11,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "nutrition_serving_size")
-public class NutritionServingSize implements SuperEntity {
+@Table(name = "additives")
+public class Additives implements SuperEntity {
 
     /**
-     * Display the Quantities of nutrition from the food on one serving
+     * Additives: As mentioned earlier, food additives are substances added
+     * to foods to enhance flavor, texture, or shelf life.
+     *
+     * Examples of additives include preservatives, colorings, and flavorings.
+     *
+     *  Sodium benzoate, Potassium sorbate, Sulfites, Propionic acid
      */
 
     @Id
@@ -32,12 +37,7 @@ public class NutritionServingSize implements SuperEntity {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
     private Food food;
-
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "nutrition_measuring_type_id", referencedColumnName = "id")
-    private NutritionMeasuringType nutritionMeasuringType;
-
 }
