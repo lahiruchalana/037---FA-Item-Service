@@ -26,13 +26,14 @@ public class Allergen implements SuperEntity {
     @Column(name = "allergenName")
     private String allergenName;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "food_id", referencedColumnName = "id")
-    private Food food;
-
     @Column(name = "created_at")
     private String createdAt;
 
     @Column(name = "updated_at")
     private String updatedAt;
+
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "food_id", referencedColumnName = "id")
+    private Food food;
+
 }

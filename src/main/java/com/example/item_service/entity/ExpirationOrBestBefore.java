@@ -25,7 +25,7 @@ public class ExpirationOrBestBefore implements SuperEntity {
      * **/
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "course_seq_id")
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "expiration_or_best_before_seq_id")
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -34,6 +34,11 @@ public class ExpirationOrBestBefore implements SuperEntity {
 
     @Column(name = "time")
     private Integer time;
+
+    /**
+     * Some special notes about the expirations -
+     * Ex - when open the bottle only one day can available ( or best before use)
+     */
 
     @Column(name = "note_about_expiration")
     private String noteAboutExpiration;
