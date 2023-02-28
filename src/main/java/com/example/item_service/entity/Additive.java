@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "additives")
-public class Additives implements SuperEntity {
+@Table(name = "additive")
+public class Additive implements SuperEntity {
 
     /**
      * Additives: As mentioned earlier, food additives are substances added
@@ -24,7 +24,7 @@ public class Additives implements SuperEntity {
      */
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO,generator = "additives_seq_id")
+    @GeneratedValue(strategy = GenerationType.AUTO,generator = "additive_seq_id")
     @Column(name = "id", nullable = false)
     private Long id;
 
