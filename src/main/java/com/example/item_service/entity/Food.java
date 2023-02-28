@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "food")
-public class Food implements SuperEntity{
+public class Food implements SuperEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "food_seq_id")
@@ -70,7 +70,7 @@ public class Food implements SuperEntity{
     private Set<Ingredient> ingredients;
 
     @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Quantity> quantities;
+    private Set<ServingSize> quantities;
 
     @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<NutritionInformation> nutritionInformationSet;

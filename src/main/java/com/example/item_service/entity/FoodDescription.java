@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "food_description")
-public class FoodDescription {
+public class FoodDescription implements SuperEntity {
 
     /**
      *  write a description about the food

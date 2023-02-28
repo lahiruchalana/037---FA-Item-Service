@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "nutrition_information")
-public class NutritionInformation {
+public class NutritionInformation implements SuperEntity {
 
     /**
      * Nutrition Information: The nutritional values of the food,

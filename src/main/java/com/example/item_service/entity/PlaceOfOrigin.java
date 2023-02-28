@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "place_of_origin")
-public class PlaceOfOrigin {
+public class PlaceOfOrigin implements SuperEntity {
 
     /**
      * Country of origin (Place of Origin): Where the food was produced or manufactured.

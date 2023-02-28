@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "cooking_instruction")
-public class CookingInstruction {
+public class CookingInstruction implements SuperEntity {
 
     /**
      * For partially cooked or non-cooked foods

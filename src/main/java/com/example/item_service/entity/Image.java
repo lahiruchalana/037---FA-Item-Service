@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "image")
-public class Image {
+public class Image implements SuperEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO,generator = "image_seq_id")

@@ -14,11 +14,11 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "measuring_type")
-public class MeasuringType {
+public class MeasuringType implements SuperEntity {
 
     /**
-     * Type - Volume, Weight, Count, Length, Energy
-     * MetricUnit - kg, g, l, ml, ounces, pounds
+     * Type - Volume, Weight, Count, Length, Energy, Sugar, salt, Oil, Protein, Fat,  Vitamin, Fiber, Minerals
+     * MetricUnit - kg, g, l, ml, ounces, pounds, calories,
      * **/
 
     @Id
@@ -39,5 +39,5 @@ public class MeasuringType {
     private String updatedAt;
 
     @OneToMany(mappedBy = "measuringType", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Quantity> quantities;
+    private Set<ServingSize> quantities;
 }

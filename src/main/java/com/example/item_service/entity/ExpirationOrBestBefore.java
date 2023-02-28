@@ -14,7 +14,7 @@ import org.w3c.dom.Text;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "expiration_or_best_before")
-public class ExpirationOrBestBefore {
+public class ExpirationOrBestBefore implements SuperEntity {
 
     /**
      * Expiration or Best Before Date: The date by which the food should be consumed for optimal quality and safety.
