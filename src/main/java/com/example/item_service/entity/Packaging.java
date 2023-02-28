@@ -14,7 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "packaging")
-public class Packaging {
+public class Packaging implements SuperEntity {
 
     /**
      * Packaging: The type of packaging used for the food, including materials and recyclable information.

@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "ingredient")
-public class Ingredient {
+public class Ingredient implements SuperEntity{
 
     /**
      * Ingredients: The list of all the ingredients used to make the food, listed in order of the amount used.

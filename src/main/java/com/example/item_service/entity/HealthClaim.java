@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "health_claim")
-public class HealthClaim {
+public class HealthClaim implements SuperEntity {
 
     /**
      * Health claims: Any statements or claims made about the food's health benefits

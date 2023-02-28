@@ -6,15 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "allergen")
-public class Allergen {
+public class Allergen implements SuperEntity {
 
     /**
      * Allergens: Any allergens that are present in the food, such as wheat, soy, nuts, or dairy, should be clearly labeled.
