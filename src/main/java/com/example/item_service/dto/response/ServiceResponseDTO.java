@@ -19,12 +19,4 @@ public class ServiceResponseDTO implements Serializable {
     HttpStatus httpStatus;
     String description;
 
-    public ServiceResponseDTO(Object data, Object error, Object message, String code, HttpStatus httpStatus, String description) {
-        this.data = data;
-        this.error = error;
-        this.message = message;
-        this.code = code;
-        this.httpStatus = httpStatus;
-        this.description = description;
-    }
 }
