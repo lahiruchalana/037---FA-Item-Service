@@ -1,7 +1,7 @@
 package com.example.item_service.entity;
 
 import com.example.item_service.common.OriginStatus;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

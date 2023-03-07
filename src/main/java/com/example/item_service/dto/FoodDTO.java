@@ -1,7 +1,7 @@
 package com.example.item_service.dto;
 
 import com.example.item_service.entity.*;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
