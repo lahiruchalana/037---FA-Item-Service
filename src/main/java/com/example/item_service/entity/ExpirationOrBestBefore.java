@@ -1,12 +1,12 @@
 package com.example.item_service.entity;
 
 import com.example.item_service.common.TimeType;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.w3c.dom.Text;
+
+import javax.persistence.*;
 
 @Entity
 @Getter

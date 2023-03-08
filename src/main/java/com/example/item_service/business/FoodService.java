@@ -7,4 +7,6 @@ public interface FoodService {
 
     ServiceResponseDTO addNewFood(FoodDTO foodDTO);
 
+    ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size);
+
 }

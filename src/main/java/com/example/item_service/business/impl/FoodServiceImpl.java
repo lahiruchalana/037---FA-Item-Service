@@ -7,6 +7,9 @@ import com.example.item_service.entity.Food;
 import com.example.item_service.repository.FoodRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -36,4 +39,20 @@ public class FoodServiceImpl implements FoodService {
         serviceResponseDTO.setDescription("Successfully saved the data!!!");
         return null;
     }
+
+    @Override
+    public ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size) {
+        log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination()");
+        Pageable pageable = PageRequest.of(pageNumber, size);
+        Page<Food> foods = foodRepository.findAll(pageable);
+        ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
+        serviceResponseDTO.setData(foods);
+        serviceResponseDTO.setCode("200");
+        serviceResponseDTO.setMessage("Success");
+        serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+        serviceResponseDTO.setDescription("Successfully received the data!!!");
+        return serviceResponseDTO;
+    }
+
+
 }
