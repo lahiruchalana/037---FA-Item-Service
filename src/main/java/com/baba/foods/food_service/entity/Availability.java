@@ -1,6 +1,8 @@
 package com.baba.foods.food_service.entity;
 
 import javax.persistence.*;
+
+import com.baba.foods.food_service.common.AvailabilityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,11 +26,11 @@ public class Availability implements SuperEntity {
     private Long id;
 
     /**
-     * Active or Inactive
+     * IN_STOCK, OUT_OF_STOCK
      */
 
     @Column(name = "status")
-    private String status;
+    private AvailabilityStatus status;
 
     @Column(name = "created_at")
     private String createdAt;
