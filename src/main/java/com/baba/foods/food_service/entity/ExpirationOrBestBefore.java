@@ -32,8 +32,12 @@ public class ExpirationOrBestBefore implements SuperEntity {
     @Column(name = "time_type")
     private TimeType timeType;
 
+    /**
+     * Should have facility to store dates hence we are using String data type for time
+     */
+
     @Column(name = "time")
-    private Integer time;
+    private String time;
 
     /**
      * Some special notes about the expirations -

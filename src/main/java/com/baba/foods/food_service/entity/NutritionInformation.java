@@ -17,6 +17,7 @@ import java.util.Set;
 public class NutritionInformation implements SuperEntity {
 
     /**
+     *
      * Nutrition Information: The nutritional values of the food,
      * including the amount of calories, protein, fat, carbohydrates, vitamins, and minerals per serving.
      */

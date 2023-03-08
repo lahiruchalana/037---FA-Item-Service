@@ -23,8 +23,8 @@ public class NutritionServingSize implements SuperEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "list_of_additives")
-    private String listOfAdditives;
+    @Column(name = "value")
+    private Integer value;
 
     @Column(name = "created_at")
     private String createdAt;
