@@ -9,4 +9,6 @@ public interface FoodService {
 
     ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size);
 
+    ServiceResponseDTO updateFoodData(Integer foodId, FoodDTO foodDTO);
+
 }
