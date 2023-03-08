@@ -9,7 +9,19 @@ public interface FoodService {
 
     ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size);
 
-//    ServiceResponseDTO addAdditiveOfFood(Long foodId, )
+    ServiceResponseDTO addAdditiveForFood(Long foodId, );
+
+    ServiceResponseDTO addExpirationOrBestBeforeForFood(Long foodId, );
+
+    ServiceResponseDTO addFoodDescriptionForFood(Long foodId, );
+
+    ServiceResponseDTO addPortionForFood(Long foodId, );
+
+    ServiceResponseDTO addPreparationTimeForFood(Long foodId, );
+
+    ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, );
+
+    ServiceResponseDTO addStorageInstructionForFood(Long foodId, );
 
     ServiceResponseDTO updateFoodData(Long foodId, FoodDTO foodDTO);
 

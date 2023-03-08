@@ -102,8 +102,8 @@ public class Food implements SuperEntity {
     @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Smell smell;
 
-    @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<StorageInstruction> storageInstructions;
+    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private StorageInstruction storageInstructions;
 
     @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Taste taste;

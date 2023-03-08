@@ -32,7 +32,7 @@ public class StorageInstruction implements SuperEntity {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
     private Food food;
 }
