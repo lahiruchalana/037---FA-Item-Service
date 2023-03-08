@@ -54,5 +54,10 @@ public class FoodServiceImpl implements FoodService {
         return serviceResponseDTO;
     }
 
+    @Override
+    public ServiceResponseDTO updateFoodData(Integer foodId, FoodDTO foodDTO) {
+        return null;
+    }
+
 
 }
