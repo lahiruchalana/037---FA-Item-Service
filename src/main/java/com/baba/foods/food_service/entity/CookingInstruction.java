@@ -1,10 +1,12 @@
 package com.baba.foods.food_service.entity;
 
-import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -27,8 +29,9 @@ public class CookingInstruction implements SuperEntity {
     @Column(name = "instruction")
     private String instruction;
 
-    @Column(name = "order")
-    private Integer order;
+    @Column(name = "number")
+    private Integer number;
+
     /**
      * order = 1 means first instruction
      * order = 2 means second instruction
