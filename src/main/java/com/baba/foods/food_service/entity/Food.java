@@ -1,6 +1,8 @@
 package com.baba.foods.food_service.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -87,7 +89,8 @@ public class Food implements SuperEntity {
     @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private PreparationTime preparationTime;
 
-    @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    @OneToOne(mappedBy = "food", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Additive additives;
 
     @OneToMany(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

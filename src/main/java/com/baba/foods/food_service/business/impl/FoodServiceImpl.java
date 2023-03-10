@@ -16,11 +16,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class FoodServiceImpl implements FoodService {
 
     private final FoodRepository foodRepository;
@@ -75,11 +77,18 @@ public class FoodServiceImpl implements FoodService {
             serviceResponseDTO.setMessage("Fail");
             serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
             serviceResponseDTO.setDescription("foodId does not exist");
+        } else if (foodOptional.get().getAdditives() != null) {
+            log.warn ("LOG :: FoodServiceImpl addAdditiveForFood() foodId exists && food has a additive");
+            foodOptional.get().getAdditives().setListOfAdditives(additiveDTO.getListOfAdditives());
+            foodOptional.get().getAdditives().setCreatedAt(additiveDTO.getCreatedAt());
+            foodOptional.get().getAdditives().setUpdatedAt(additiveDTO.getUpdatedAt());
+            serviceResponseDTO.setData(foodOptional.get().getAdditives());
+            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode("200");
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("additives added for food");
         } else {
-//            if (foodOptional.get().getAdditives() != null) {
-//
-//            }
-            log.warn ("LOG :: FoodServiceImpl addAdditiveForFood() foodId exists");
+            log.warn ("LOG :: FoodServiceImpl addAdditiveForFood() foodId exists && food has not a additive");
             Additive additive = new Additive();
             additive.setId(additiveDTO.getId());
             additive.setListOfAdditives(additiveDTO.getListOfAdditives());
@@ -89,6 +98,7 @@ public class FoodServiceImpl implements FoodService {
              * Find food by foodId, so insert that food to additive
              */
             additive.setFood(foodOptional.get());
+            foodOptional.get().setAdditives(additive);
             Additive additiveSave = additiveRepository.save(additive);
             serviceResponseDTO.setData(additiveSave);
             serviceResponseDTO.setMessage("Success");

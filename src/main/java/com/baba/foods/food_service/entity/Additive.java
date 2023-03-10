@@ -37,7 +37,7 @@ public class Additive implements SuperEntity {
     @Column(name = "updated_at")
     private String updatedAt;
 
-    @OneToOne(cascade = {CascadeType.MERGE})
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "food_id", referencedColumnName = "id")
     private Food food;
 }
