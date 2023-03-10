@@ -15,8 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -77,12 +77,12 @@ public class FoodServiceImpl implements FoodService {
             serviceResponseDTO.setMessage("Fail");
             serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
             serviceResponseDTO.setDescription("foodId does not exist");
-        } else if (foodOptional.get().getAdditives() != null) {
+        } else if (foodOptional.get().getAdditive() != null) {
             log.warn ("LOG :: FoodServiceImpl addAdditiveForFood() foodId exists && food has a additive");
-            foodOptional.get().getAdditives().setListOfAdditives(additiveDTO.getListOfAdditives());
-            foodOptional.get().getAdditives().setCreatedAt(additiveDTO.getCreatedAt());
-            foodOptional.get().getAdditives().setUpdatedAt(additiveDTO.getUpdatedAt());
-            serviceResponseDTO.setData(foodOptional.get().getAdditives());
+            foodOptional.get().getAdditive().setListOfAdditives(additiveDTO.getListOfAdditives());
+            foodOptional.get().getAdditive().setCreatedAt(additiveDTO.getCreatedAt());
+            foodOptional.get().getAdditive().setUpdatedAt(additiveDTO.getUpdatedAt());
+            serviceResponseDTO.setData(foodOptional.get().getAdditive());
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
@@ -98,7 +98,7 @@ public class FoodServiceImpl implements FoodService {
              * Find food by foodId, so insert that food to additive
              */
             additive.setFood(foodOptional.get());
-            foodOptional.get().setAdditives(additive);
+            foodOptional.get().setAdditive(additive);
             Additive additiveSave = additiveRepository.save(additive);
             serviceResponseDTO.setData(additiveSave);
             serviceResponseDTO.setMessage("Success");
