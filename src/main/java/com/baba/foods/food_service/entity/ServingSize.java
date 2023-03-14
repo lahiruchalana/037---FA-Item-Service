@@ -1,6 +1,8 @@
 package com.baba.foods.food_service.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,9 +41,11 @@ public class ServingSize implements SuperEntity {
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("quantities")
     private Food food;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "measuring_type_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("servingSize")
     private MeasuringType measuringType;
 }

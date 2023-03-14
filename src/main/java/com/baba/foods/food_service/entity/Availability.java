@@ -3,6 +3,7 @@ package com.baba.foods.food_service.entity;
 import javax.persistence.*;
 
 import com.baba.foods.food_service.common.AvailabilityStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +41,7 @@ public class Availability implements SuperEntity {
 
     @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("availability")
     private Food food;
 
 }

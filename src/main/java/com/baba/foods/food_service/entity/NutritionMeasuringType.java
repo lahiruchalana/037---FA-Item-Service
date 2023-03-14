@@ -1,6 +1,8 @@
 package com.baba.foods.food_service.entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +41,6 @@ public class NutritionMeasuringType implements SuperEntity {
     private String updatedAt;
 
     @OneToMany(mappedBy = "nutritionMeasuringType", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnoreProperties("nutritionMeasuringType")
     private Set<NutritionServingSize> nutritionServingSizes;
 }

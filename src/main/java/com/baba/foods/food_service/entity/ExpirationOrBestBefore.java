@@ -1,6 +1,7 @@
 package com.baba.foods.food_service.entity;
 
 import com.baba.foods.food_service.common.TimeType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -55,5 +56,6 @@ public class ExpirationOrBestBefore implements SuperEntity {
 
     @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("expirationOrBestBefore")
     private Food food;
 }
