@@ -4,8 +4,10 @@ import com.baba.foods.food_service.business.FoodService;
 import com.baba.foods.food_service.dto.*;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import com.baba.foods.food_service.entity.Additive;
+import com.baba.foods.food_service.entity.ExpirationOrBestBefore;
 import com.baba.foods.food_service.entity.Food;
 import com.baba.foods.food_service.repository.AdditiveRepository;
+import com.baba.foods.food_service.repository.ExpirationOrBestBeforeRepository;
 import com.baba.foods.food_service.repository.FoodRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,7 @@ public class FoodServiceImpl implements FoodService {
 
     private final FoodRepository foodRepository;
     private final AdditiveRepository additiveRepository;
+    private final ExpirationOrBestBeforeRepository expirationOrBestBeforeRepository;
 
     @Override
     public ServiceResponseDTO addNewFood(FoodDTO foodDTO) {
@@ -94,11 +97,7 @@ public class FoodServiceImpl implements FoodService {
             additive.setListOfAdditives(additiveDTO.getListOfAdditives());
             additive.setCreatedAt(additiveDTO.getCreatedAt());
             additive.setUpdatedAt(additiveDTO.getUpdatedAt());
-            /**
-             * Find food by foodId, so insert that food to additive
-             */
             additive.setFood(foodOptional.get());
-            foodOptional.get().setAdditive(additive);
             Additive additiveSave = additiveRepository.save(additive);
             serviceResponseDTO.setData(additiveSave);
             serviceResponseDTO.setMessage("Success");
@@ -111,7 +110,46 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ServiceResponseDTO addExpirationOrBestBeforeForFood(Long foodId, ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO) {
-        return null;
+        log.info ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood()");
+        Optional<Food> foodOptional = foodRepository.findById(foodId);
+        System.out.println(foodOptional);
+        ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
+        if (foodOptional.isEmpty()) {
+            log.warn ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood() foodId does not exist");
+            serviceResponseDTO.setCode("404");
+            serviceResponseDTO.setMessage("Fail");
+            serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
+            serviceResponseDTO.setDescription("foodId does not exist");
+        } else if (foodOptional.get().getAdditive() != null) {
+            log.warn ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood() foodId exists && food has a expirationOrBestBefore");
+            foodOptional.get().getExpirationOrBestBefore().setTimeType(expirationOrBestBeforeDTO.getTimeType());
+            foodOptional.get().getExpirationOrBestBefore().setTime(expirationOrBestBeforeDTO.getTime());
+            foodOptional.get().getExpirationOrBestBefore().setNoteAboutExpiration(expirationOrBestBeforeDTO.getNoteAboutExpiration());
+            foodOptional.get().getExpirationOrBestBefore().setCreatedAt(expirationOrBestBeforeDTO.getCreatedAt());
+            foodOptional.get().getExpirationOrBestBefore().setUpdatedAt(expirationOrBestBeforeDTO.getUpdatedAt());
+            serviceResponseDTO.setData(foodOptional.get().getAdditive());
+            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode("200");
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("additives added for food");
+        } else {
+            log.warn ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood() foodId exists && food has not a expirationOrBestBefore");
+            ExpirationOrBestBefore expirationOrBestBefore = ExpirationOrBestBefore.builder()
+                    .time(expirationOrBestBeforeDTO.getTime())
+                    .timeType(expirationOrBestBeforeDTO.getTimeType())
+                    .noteAboutExpiration(expirationOrBestBeforeDTO.getNoteAboutExpiration())
+                    .food(expirationOrBestBeforeDTO.getFood())
+                    .createdAt(expirationOrBestBeforeDTO.getCreatedAt())
+                    .updatedAt(expirationOrBestBeforeDTO.getUpdatedAt())
+                    .build();
+            ExpirationOrBestBefore expirationOrBestBeforeSave = expirationOrBestBeforeRepository.save(expirationOrBestBefore);
+            serviceResponseDTO.setData(expirationOrBestBeforeSave);
+            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode("200");
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("expirationOrBestBefore added for food");
+        }
+        return serviceResponseDTO;
     }
 
     @Override
