@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -14,8 +15,8 @@ public class CookingMethodDTO {
 
     private Long id;
     private String method;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdDate;
+    private Date updatedDate;
     private Set<Food> foods;
 
 }

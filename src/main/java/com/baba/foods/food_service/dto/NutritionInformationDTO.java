@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -14,8 +15,8 @@ public class NutritionInformationDTO {
 
     private Long id;
     private String information;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdDate;
+    private Date updatedDate;
     private Food food;
 
 }

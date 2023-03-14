@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,8 +15,8 @@ public class PortionDTO {
     private Long id;
     private Double numberOfPortion;
     private String quantity;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdDate;
+    private Date updatedDate;
     private Food food;
 
 }

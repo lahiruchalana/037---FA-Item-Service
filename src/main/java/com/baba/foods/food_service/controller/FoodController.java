@@ -29,7 +29,7 @@ public class FoodController {
             return ResponseHandler.responseBuilder(foodService.addNewFood(foodDTO));
         } catch (Exception e) {
             log.warn ("LOG :: FoodController addNewFood() inside the catch");
-            log.error(e.getMessage());
+            log.warn(String.valueOf(e));
             ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
                     .error(e)
                     .message("Fail")
@@ -52,7 +52,7 @@ public class FoodController {
             return ResponseHandler.responseBuilder(foodService.getFoodDataWithPagination(pageNumber, size));
         } catch (Exception e) {
             log.warn ("LOG :: FoodController getFoodDataWithPagination() inside the catch");
-            log.error(e.getMessage());
+            log.warn(String.valueOf(e));
             ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
                     .error(e)
                     .message("Fail")
@@ -74,7 +74,8 @@ public class FoodController {
             log.info ("LOG :: FoodController addAdditiveForFood() inside the try");
             return ResponseHandler.responseBuilder(foodService.addAdditiveForFood(foodId, additiveDTO));
         } catch (Exception e) {
-            log.info ("LOG :: FoodController addAdditiveForFood() inside the catch");
+            log.warn ("LOG :: FoodController addAdditiveForFood() inside the catch");
+            log.warn(String.valueOf(e));
             ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
                     .error(e)
                     .message("Fail")

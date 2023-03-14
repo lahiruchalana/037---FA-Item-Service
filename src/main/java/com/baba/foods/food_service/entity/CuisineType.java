@@ -7,7 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -31,11 +34,15 @@ public class CuisineType implements SuperEntity {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "created_at")
-    private String createdAt;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date", updatable = false)
+    private Date createdDate;
 
-    @Column(name = "updated_at")
-    private String updatedAt;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
     @OneToMany(mappedBy = "cuisineType", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnoreProperties("cuisineType")

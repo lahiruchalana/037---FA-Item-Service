@@ -83,8 +83,8 @@ public class FoodServiceImpl implements FoodService {
         } else if (foodOptional.get().getAdditive() != null) {
             log.warn ("LOG :: FoodServiceImpl addAdditiveForFood() foodId exists && food has a additive");
             foodOptional.get().getAdditive().setListOfAdditives(additiveDTO.getListOfAdditives());
-            foodOptional.get().getAdditive().setCreatedAt(additiveDTO.getCreatedAt());
-            foodOptional.get().getAdditive().setUpdatedAt(additiveDTO.getUpdatedAt());
+            foodOptional.get().getAdditive().setCreatedDate(additiveDTO.getCreatedDate());
+            foodOptional.get().getAdditive().setUpdatedDate(additiveDTO.getUpdatedDate());
             serviceResponseDTO.setData(foodOptional.get().getAdditive());
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
@@ -95,8 +95,8 @@ public class FoodServiceImpl implements FoodService {
             Additive additive = new Additive();
             additive.setId(additiveDTO.getId());
             additive.setListOfAdditives(additiveDTO.getListOfAdditives());
-            additive.setCreatedAt(additiveDTO.getCreatedAt());
-            additive.setUpdatedAt(additiveDTO.getUpdatedAt());
+            additive.setCreatedDate(additiveDTO.getCreatedDate());
+            additive.setUpdatedDate(additiveDTO.getUpdatedDate());
             additive.setFood(foodOptional.get());
             Additive additiveSave = additiveRepository.save(additive);
             serviceResponseDTO.setData(additiveSave);
@@ -125,8 +125,8 @@ public class FoodServiceImpl implements FoodService {
             foodOptional.get().getExpirationOrBestBefore().setTimeType(expirationOrBestBeforeDTO.getTimeType());
             foodOptional.get().getExpirationOrBestBefore().setTime(expirationOrBestBeforeDTO.getTime());
             foodOptional.get().getExpirationOrBestBefore().setNoteAboutExpiration(expirationOrBestBeforeDTO.getNoteAboutExpiration());
-            foodOptional.get().getExpirationOrBestBefore().setCreatedAt(expirationOrBestBeforeDTO.getCreatedAt());
-            foodOptional.get().getExpirationOrBestBefore().setUpdatedAt(expirationOrBestBeforeDTO.getUpdatedAt());
+            foodOptional.get().getExpirationOrBestBefore().setCreatedDate(expirationOrBestBeforeDTO.getCreatedDate());
+            foodOptional.get().getExpirationOrBestBefore().setUpdatedDate(expirationOrBestBeforeDTO.getUpdatedDate());
             serviceResponseDTO.setData(foodOptional.get().getAdditive());
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
@@ -139,8 +139,8 @@ public class FoodServiceImpl implements FoodService {
                     .timeType(expirationOrBestBeforeDTO.getTimeType())
                     .noteAboutExpiration(expirationOrBestBeforeDTO.getNoteAboutExpiration())
                     .food(expirationOrBestBeforeDTO.getFood())
-                    .createdAt(expirationOrBestBeforeDTO.getCreatedAt())
-                    .updatedAt(expirationOrBestBeforeDTO.getUpdatedAt())
+                    .createdDate(expirationOrBestBeforeDTO.getCreatedDate())
+                    .updatedDate(expirationOrBestBeforeDTO.getUpdatedDate())
                     .build();
             ExpirationOrBestBefore expirationOrBestBeforeSave = expirationOrBestBeforeRepository.save(expirationOrBestBefore);
             serviceResponseDTO.setData(expirationOrBestBeforeSave);
