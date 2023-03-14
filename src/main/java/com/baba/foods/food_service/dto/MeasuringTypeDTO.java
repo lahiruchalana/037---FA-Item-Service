@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -15,8 +16,8 @@ public class MeasuringTypeDTO {
     private Long id;
     private String type;
     private String metricUnit;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdDate;
+    private Date updatedDate;
     private Set<ServingSize> servingSize;
 
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -13,8 +14,8 @@ public class ThemeDTO {
 
     private Long id;
     private String name;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdDate;
+    private Date updatedDate;
     private Set<Long> foodIds;
 
 }

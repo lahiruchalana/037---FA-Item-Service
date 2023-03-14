@@ -3,10 +3,15 @@ package com.baba.foods.food_service.entity;
 import javax.persistence.*;
 
 import com.baba.foods.food_service.common.AvailabilityStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.Date;
 
 @Entity
 @Getter
@@ -32,14 +37,19 @@ public class Availability implements SuperEntity {
     @Column(name = "status")
     private AvailabilityStatus status;
 
-    @Column(name = "created_at")
-    private String createdAt;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date", updatable = false)
+    private Date createdDate;
 
-    @Column(name = "updated_at")
-    private String updatedAt;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
     @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("availability")
     private Food food;
 
 }

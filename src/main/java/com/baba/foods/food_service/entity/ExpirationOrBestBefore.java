@@ -1,16 +1,18 @@
 package com.baba.foods.food_service.entity;
 
 import com.baba.foods.food_service.common.TimeType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "expiration_or_best_before")
@@ -47,13 +49,18 @@ public class ExpirationOrBestBefore implements SuperEntity {
     @Column(name = "note_about_expiration")
     private String noteAboutExpiration;
 
-    @Column(name = "created_at")
-    private String createdAt;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date", updatable = false)
+    private Date createdDate;
 
-    @Column(name = "updated_at")
-    private String updatedAt;
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
     @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "food_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("expirationOrBestBefore")
     private Food food;
 }
