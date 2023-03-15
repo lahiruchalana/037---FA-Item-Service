@@ -19,7 +19,7 @@ public interface FoodService {
 
     ServiceResponseDTO addPreparationTimeForFood(Long foodId, PreparationTimeDTO preparationTimeDTO);
 
-    ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, SmellDTO smellDTO, TasteDTO tasteDTO, TextureDTO textureDTO);
+    ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO);
 
     ServiceResponseDTO addStorageInstructionForFood(Long foodId, StorageInstructionDTO storageInstructionDTO);
 

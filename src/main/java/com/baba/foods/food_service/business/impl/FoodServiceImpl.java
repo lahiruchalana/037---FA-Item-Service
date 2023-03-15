@@ -281,8 +281,68 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, SmellDTO smellDTO, TasteDTO tasteDTO, TextureDTO textureDTO) {
-        return null;
+    public ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO) {
+        log.info ("LOG :: FoodServiceImpl addSmellTasteTextureForFood()");
+        Optional<Food> foodOptional = foodRepository.findById(foodId);
+        System.out.println(foodOptional);
+        ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
+        if (foodOptional.isEmpty()) {
+            log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() foodId does not exist");
+            serviceResponseDTO.setCode("404");
+            serviceResponseDTO.setMessage("Fail");
+            serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
+            serviceResponseDTO.setDescription("foodId does not exist");
+        } else if (foodOptional.get().getPreparationTime() != null) {
+            log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() foodId exists && food has a SmellTasteTexture - to update SmellTasteTexture");
+            foodOptional.get().getSmell().setSmellName(smellTasteTextureDTO.getSmell().getSmellName());
+            foodOptional.get().getSmell().setCreatedDate(smellTasteTextureDTO.getSmell().getCreatedDate());
+            foodOptional.get().getSmell().setUpdatedDate(smellTasteTextureDTO.getSmell().getUpdatedDate());
+            foodOptional.get().getTaste().setListOfTaste(smellTasteTextureDTO.getTaste().getListOfTaste());
+            foodOptional.get().getTaste().setCreatedDate(smellTasteTextureDTO.getTaste().getCreatedDate());
+            foodOptional.get().getTaste().setUpdatedDate(smellTasteTextureDTO.getTaste().getUpdatedDate());
+            foodOptional.get().getTexture().setListOfTexture(smellTasteTextureDTO.getTexture().getListOfTexture());
+            foodOptional.get().getTexture().setCreatedDate(smellTasteTextureDTO.getTexture().getCreatedDate());
+            foodOptional.get().getTexture().setUpdatedDate(smellTasteTextureDTO.getTexture().getUpdatedDate());
+            serviceResponseDTO.setData(foodOptional.get().getPreparationTime());
+            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode("200");
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("SmellTasteTexture updated with new data for the particular food");
+        } else {
+            log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() foodId exists && food has not a SmellTasteTexture - to add SmellTasteTexture");
+            Smell smell = Smell.builder()
+                    .smellName(smellTasteTextureDTO.getSmell().getSmellName())
+                    .food(foodOptional.get())
+                    .createdDate(smellTasteTextureDTO.getSmell().getCreatedDate())
+                    .updatedDate(smellTasteTextureDTO.getSmell().getUpdatedDate())
+                    .build();
+            Smell smellSave = smellRepository.save(smell);
+            Taste taste = Taste.builder()
+                    .listOfTaste(smellTasteTextureDTO.getTaste().getListOfTaste())
+                    .food(foodOptional.get())
+                    .createdDate(smellTasteTextureDTO.getTaste().getCreatedDate())
+                    .updatedDate(smellTasteTextureDTO.getTaste().getUpdatedDate())
+                    .build();
+            Taste tasteSave = tasteRepository.save(taste);
+            Texture texture = Texture.builder()
+                    .listOfTexture(smellTasteTextureDTO.getTexture().getListOfTexture())
+                    .food(foodOptional.get())
+                    .createdDate(smellTasteTextureDTO.getTexture().getCreatedDate())
+                    .updatedDate(smellTasteTextureDTO.getTexture().getUpdatedDate())
+                    .build();
+            Texture textureSave = textureRepository.save(texture);
+            SmellTasteTextureDTO smellTasteTextureDTOSave = SmellTasteTextureDTO.builder()
+                    .smell(smellSave)
+                    .taste(tasteSave)
+                    .texture(textureSave)
+                    .build();
+            serviceResponseDTO.setData(smellTasteTextureDTOSave);
+            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode("200");
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("SmellTasteTexture added for food");
+        }
+        return serviceResponseDTO;
     }
 
     @Override
