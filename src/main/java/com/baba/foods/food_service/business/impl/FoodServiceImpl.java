@@ -292,7 +292,7 @@ public class FoodServiceImpl implements FoodService {
             serviceResponseDTO.setMessage("Fail");
             serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
             serviceResponseDTO.setDescription("foodId does not exist");
-        } else if (foodOptional.get().getPreparationTime() != null) {
+        } else if (foodOptional.get().getSmell() != null || foodOptional.get().getTaste() != null || foodOptional.get().getTexture() != null) {
             log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() foodId exists && food has a SmellTasteTexture - to update SmellTasteTexture");
             foodOptional.get().getSmell().setSmellName(smellTasteTextureDTO.getSmell().getSmellName());
             foodOptional.get().getSmell().setCreatedDate(smellTasteTextureDTO.getSmell().getCreatedDate());
@@ -303,7 +303,12 @@ public class FoodServiceImpl implements FoodService {
             foodOptional.get().getTexture().setListOfTexture(smellTasteTextureDTO.getTexture().getListOfTexture());
             foodOptional.get().getTexture().setCreatedDate(smellTasteTextureDTO.getTexture().getCreatedDate());
             foodOptional.get().getTexture().setUpdatedDate(smellTasteTextureDTO.getTexture().getUpdatedDate());
-            serviceResponseDTO.setData(foodOptional.get().getPreparationTime());
+            SmellTasteTextureDTO smellTasteTextureDTOSave = SmellTasteTextureDTO.builder()
+                    .smell(foodOptional.get().getSmell())
+                    .taste(foodOptional.get().getTaste())
+                    .texture(foodOptional.get().getTexture())
+                    .build();
+            serviceResponseDTO.setData(smellTasteTextureDTOSave);
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
@@ -347,7 +352,42 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public ServiceResponseDTO addStorageInstructionForFood(Long foodId, StorageInstructionDTO storageInstructionDTO) {
-        return null;
+        log.info ("LOG :: FoodServiceImpl addStorageInstructionForFood()");
+        Optional<Food> foodOptional = foodRepository.findById(foodId);
+        System.out.println(foodOptional);
+        ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
+        if (foodOptional.isEmpty()) {
+            log.warn ("LOG :: FoodServiceImpl addStorageInstructionForFood() foodId does not exist");
+            serviceResponseDTO.setCode("404");
+            serviceResponseDTO.setMessage("Fail");
+            serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
+            serviceResponseDTO.setDescription("foodId does not exist");
+        } else if (foodOptional.get().getStorageInstructions() != null) {
+            log.warn ("LOG :: FoodServiceImpl addStorageInstructionForFood() foodId exists && food has a storageInstruction - to update storageInstruction");
+            foodOptional.get().getStorageInstructions().setInstruction(storageInstructionDTO.getInstruction());
+            foodOptional.get().getStorageInstructions().setCreatedDate(storageInstructionDTO.getCreatedDate());
+            foodOptional.get().getStorageInstructions().setUpdatedDate(storageInstructionDTO.getUpdatedDate());
+            serviceResponseDTO.setData(foodOptional.get().getStorageInstructions());
+            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode("200");
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("storageInstruction updated with new data for the particular food");
+        } else {
+            log.warn ("LOG :: FoodServiceImpl addStorageInstructionForFood() foodId exists && food has not a storageInstruction - to add storageInstruction");
+            StorageInstruction storageInstruction = StorageInstruction.builder()
+                    .instruction(storageInstructionDTO.getInstruction())
+                    .food(foodOptional.get())
+                    .createdDate(storageInstructionDTO.getCreatedDate())
+                    .updatedDate(storageInstructionDTO.getUpdatedDate())
+                    .build();
+            StorageInstruction storageInstructionSave = storageInstructionRepository.save(storageInstruction);
+            serviceResponseDTO.setData(storageInstructionSave);
+            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode("200");
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("storageInstruction added for food");
+        }
+        return serviceResponseDTO;
     }
 
     @Override
