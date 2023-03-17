@@ -1,6 +1,7 @@
 package com.baba.foods.food_service.dto;
 
 import com.baba.foods.food_service.entity.Food;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

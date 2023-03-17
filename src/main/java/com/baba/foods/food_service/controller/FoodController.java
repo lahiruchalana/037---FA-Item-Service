@@ -19,6 +19,9 @@ public class FoodController {
 
     private final FoodService foodService;
 
+    /**
+     * response time -> 20ms
+     */
     @PostMapping("/send")
     public ResponseEntity<Object> addNewFood(
             @RequestBody FoodDTO foodDTO
@@ -179,6 +182,10 @@ public class FoodController {
         }
     }
 
+    /**
+     * update response time -> 20ms - 30ms
+     * save response time -> 30ms -50ms (there are 3 database savings so, it's fine here)
+     */
     @PutMapping("id/{foodId}/addOrUpdate/smellTasteTexture")
     public ResponseEntity<Object> addSmellTasteTextureForFood(
             @PathVariable("foodId") Long foodId,
