@@ -3,7 +3,9 @@ package com.baba.foods.food_service.business.impl;
 import com.baba.foods.food_service.business.FoodService;
 import com.baba.foods.food_service.dto.*;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
+import com.baba.foods.food_service.dto.response.SmellTasteTextureResponseDTO;
 import com.baba.foods.food_service.entity.*;
+import com.baba.foods.food_service.mapper.AdditiveToResponseDTO;
 import com.baba.foods.food_service.repository.*;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -89,7 +92,7 @@ public class FoodServiceImpl implements FoodService {
             foodOptional.get().getAdditive().setListOfAdditives(additiveDTO.getListOfAdditives());
             foodOptional.get().getAdditive().setCreatedDate(additiveDTO.getCreatedDate());
             foodOptional.get().getAdditive().setUpdatedDate(additiveDTO.getUpdatedDate());
-            serviceResponseDTO.setData(foodOptional.get().getAdditive());
+            serviceResponseDTO.setData(AdditiveToResponseDTO.getResponseDTO(foodOptional.get().getAdditive()));
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
@@ -103,7 +106,7 @@ public class FoodServiceImpl implements FoodService {
             additive.setUpdatedDate(additiveDTO.getUpdatedDate());
             additive.setFood(foodOptional.get());
             Additive additiveSave = additiveRepository.save(additive);
-            serviceResponseDTO.setData(additiveSave);
+            serviceResponseDTO.setData(AdditiveToResponseDTO.getResponseDTO(additiveSave));
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
@@ -281,10 +284,13 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @Description("Smell, Taste and Texture are added or updated to a food, " +
+            "adding smell, taste and texture is happening at same time" +
+            "also updating smell, taste and texture is happening at same time")
+    @Async
     public ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO) {
         log.info ("LOG :: FoodServiceImpl addSmellTasteTextureForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
-        System.out.println(foodOptional);
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         if (foodOptional.isEmpty()) {
             log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() foodId does not exist");
@@ -295,20 +301,14 @@ public class FoodServiceImpl implements FoodService {
         } else if (foodOptional.get().getSmell() != null || foodOptional.get().getTaste() != null || foodOptional.get().getTexture() != null) {
             log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() foodId exists && food has a SmellTasteTexture - to update SmellTasteTexture");
             foodOptional.get().getSmell().setSmellName(smellTasteTextureDTO.getSmell().getSmellName());
-            foodOptional.get().getSmell().setCreatedDate(smellTasteTextureDTO.getSmell().getCreatedDate());
-            foodOptional.get().getSmell().setUpdatedDate(smellTasteTextureDTO.getSmell().getUpdatedDate());
             foodOptional.get().getTaste().setListOfTaste(smellTasteTextureDTO.getTaste().getListOfTaste());
-            foodOptional.get().getTaste().setCreatedDate(smellTasteTextureDTO.getTaste().getCreatedDate());
-            foodOptional.get().getTaste().setUpdatedDate(smellTasteTextureDTO.getTaste().getUpdatedDate());
             foodOptional.get().getTexture().setListOfTexture(smellTasteTextureDTO.getTexture().getListOfTexture());
-            foodOptional.get().getTexture().setCreatedDate(smellTasteTextureDTO.getTexture().getCreatedDate());
-            foodOptional.get().getTexture().setUpdatedDate(smellTasteTextureDTO.getTexture().getUpdatedDate());
-            SmellTasteTextureDTO smellTasteTextureDTOSave = SmellTasteTextureDTO.builder()
+            SmellTasteTextureResponseDTO smellTasteTextureResponseDTO = SmellTasteTextureResponseDTO.builder()
                     .smell(foodOptional.get().getSmell())
                     .taste(foodOptional.get().getTaste())
                     .texture(foodOptional.get().getTexture())
                     .build();
-            serviceResponseDTO.setData(smellTasteTextureDTOSave);
+            serviceResponseDTO.setData(smellTasteTextureResponseDTO);
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
@@ -336,12 +336,12 @@ public class FoodServiceImpl implements FoodService {
                     .updatedDate(smellTasteTextureDTO.getTexture().getUpdatedDate())
                     .build();
             Texture textureSave = textureRepository.save(texture);
-            SmellTasteTextureDTO smellTasteTextureDTOSave = SmellTasteTextureDTO.builder()
+            SmellTasteTextureResponseDTO smellTasteTextureResponseDTO = SmellTasteTextureResponseDTO.builder()
                     .smell(smellSave)
                     .taste(tasteSave)
                     .texture(textureSave)
                     .build();
-            serviceResponseDTO.setData(smellTasteTextureDTOSave);
+            serviceResponseDTO.setData(smellTasteTextureResponseDTO);
             serviceResponseDTO.setMessage("Success");
             serviceResponseDTO.setCode("200");
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
