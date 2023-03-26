@@ -6,6 +6,7 @@ import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import com.baba.foods.food_service.dto.response.SmellTasteTextureResponseDTO;
 import com.baba.foods.food_service.entity.*;
 import com.baba.foods.food_service.mapper.AdditiveToResponseDTO;
+import com.baba.foods.food_service.mapper.FoodToResponseDTO;
 import com.baba.foods.food_service.repository.*;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sound.sampled.Port;
 import java.util.Optional;
 
 @Service
@@ -38,9 +38,18 @@ public class FoodServiceImpl implements FoodService {
     private final TextureRepository textureRepository;
     private final StorageInstructionRepository storageInstructionRepository;
 
+    /**
+     * // TODO: 3/17/2023
+     *  set for update food data
+     *  and there is a 500 internal server error for when save food data
+     *  change method names to addOrUpdateNewFood ---
+     *  --- in service and controller level
+     */
     @Override
+    @Description("Insert food data")
     public ServiceResponseDTO addNewFood(FoodDTO foodDTO) {
         log.info ("LOG :: FoodServiceImpl addNewFood()");
+        ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         Food food = new Food();
         food.setName(foodDTO.getName());
         food.setDietaryRestriction(foodDTO.getDietaryRestriction());
@@ -48,17 +57,20 @@ public class FoodServiceImpl implements FoodService {
         food.setCourse(foodDTO.getCourse());
         food.setCookingMethod(foodDTO.getCookingMethod());
         food.setThemes(foodDTO.getThemes());
+        if (foodDTO.getId() != null) {
+            food.setId(foodDTO.getId());
+        }
         Food foodSave = foodRepository.save(food);
-        ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
-        serviceResponseDTO.setData(foodSave);
+        serviceResponseDTO.setData(FoodToResponseDTO.getResponseDTO(foodSave));
         serviceResponseDTO.setCode("200");
         serviceResponseDTO.setMessage("Success");
         serviceResponseDTO.setHttpStatus(HttpStatus.OK);
         serviceResponseDTO.setDescription("Successfully saved the data!!!");
-        return null;
+        return serviceResponseDTO;
     }
 
     @Override
+    @Description("Get food data with pagination")
     public ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size) {
         log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination()");
         Pageable pageable = PageRequest.of(pageNumber, size);
