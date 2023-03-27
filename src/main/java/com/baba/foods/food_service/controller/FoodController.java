@@ -20,215 +20,106 @@ public class FoodController {
     private final FoodService foodService;
 
     /**
-     * response time -> 20ms
+     * response time for create -> 12-20ms
+     * response time for update -> 15-25ms
+     * When using serviceResponseDTO we can get lower response time
+     * @TODO - add custom exceptions for receiving error messages
      */
     @PostMapping("/send")
-    public ResponseEntity<Object> addNewFood(
+    public ServiceResponseDTO addNewFood(
             @RequestBody FoodDTO foodDTO
     ) {
         log.info ("LOG :: FoodController addNewFood()");
-        try {
-            log.info ("LOG :: FoodController addNewFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addNewFood(foodDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addNewFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
-    }
-
-    @GetMapping("/get/page/{pageNumber}/size/{size}")
-    public ResponseEntity<Object> getFoodDataWithPagination(
-            @PathVariable("pageNumber") Integer pageNumber,
-            @PathVariable("size") Integer size
-    ) {
-        log.info ("LOG :: FoodController getFoodDataWithPagination()");
-        try {
-            log.info ("LOG :: FoodController getFoodDataWithPagination() inside the try");
-            return ResponseHandler.responseBuilder(foodService.getFoodDataWithPagination(pageNumber, size));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController getFoodDataWithPagination() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
-    }
-
-    @PutMapping("id/{foodId}/addOrUpdate/additive")
-    public ResponseEntity<Object> addAdditiveForFood(
-            @PathVariable("foodId") Long foodId,
-            @RequestBody AdditiveDTO additiveDTO
-    ) {
-        log.info ("LOG :: FoodController addAdditiveForFood()");
-        try {
-            log.info ("LOG :: FoodController addAdditiveForFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addAdditiveForFood(foodId, additiveDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addAdditiveForFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
-    }
-
-    @PutMapping("id/{foodId}/addOrUpdate/expirationOrBestBefore")
-    public ResponseEntity<Object> addExpirationOrBestBeforeForFood(
-            @PathVariable("foodId") Long foodId,
-            @RequestBody ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO
-    ) {
-        log.info ("LOG :: FoodController addExpirationOrBestBeforeForFood()");
-        try {
-            log.info ("LOG :: FoodController addExpirationOrBestBeforeForFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addExpirationOrBestBeforeForFood(foodId, expirationOrBestBeforeDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addExpirationOrBestBeforeForFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
-    }
-
-    @PutMapping("id/{foodId}/addOrUpdate/foodDescription")
-    public ResponseEntity<Object> addFoodDescriptionForFood(
-            @PathVariable("foodId") Long foodId,
-            @RequestBody FoodDescriptionDTO foodDescriptionDTO
-    ) {
-        log.info ("LOG :: FoodController addFoodDescriptionForFood()");
-        try {
-            log.info ("LOG :: FoodController addFoodDescriptionForFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addFoodDescriptionForFood(foodId, foodDescriptionDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addFoodDescriptionForFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
-    }
-
-    @PutMapping("id/{foodId}/addOrUpdate/portion")
-    public ResponseEntity<Object> addPortionForFood(
-            @PathVariable("foodId") Long foodId,
-            @RequestBody PortionDTO portionDTO
-    ) {
-        log.info ("LOG :: FoodController addPortionForFood()");
-        try {
-            log.info ("LOG :: FoodController addPortionForFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addPortionForFood(foodId, portionDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addPortionForFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
-    }
-
-    @PutMapping("id/{foodId}/addOrUpdate/preparationTime")
-    public ResponseEntity<Object> addPreparationTimeForFood(
-            @PathVariable("foodId") Long foodId,
-            @RequestBody PreparationTimeDTO preparationTimeDTO
-    ) {
-        log.info ("LOG :: FoodController addPreparationTimeForFood()");
-        try {
-            log.info ("LOG :: FoodController addPreparationTimeForFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addPreparationTimeForFood(foodId, preparationTimeDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addPreparationTimeForFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
+        return foodService.addNewFood(foodDTO);
     }
 
     /**
+     * ------ When using ServiceResponseDTO, SO USE ServiceResponseDTO-------
+     * update response time -> 9ms -18ms
+     * save response time -> ***
+     *
+     * ------ Before Using ServiceResponseDTO ------
      * update response time -> 20ms - 30ms
-     * save response time -> 30ms -50ms (there are 3 database savings so, it's fine here)
+     * save response time -> 30ms -50ms
      */
     @PutMapping("id/{foodId}/addOrUpdate/smellTasteTexture")
-    public ResponseEntity<Object> addSmellTasteTextureForFood(
+    public ServiceResponseDTO addSmellTasteTextureForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody SmellTasteTextureDTO smellTasteTextureDTO
     ) {
         log.info ("LOG :: FoodController addSmellTasteTextureForFood()");
-        try {
-            log.info ("LOG :: FoodController addSmellTasteTextureForFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addSmellTasteTextureForFood(foodId, smellTasteTextureDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addSmellTasteTextureForFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
+        return foodService.addSmellTasteTextureForFood(foodId, smellTasteTextureDTO);
+    }
+
+    @GetMapping("/get/page/{pageNumber}/size/{size}")
+    public ServiceResponseDTO getFoodDataWithPagination(
+            @PathVariable("pageNumber") Integer pageNumber,
+            @PathVariable("size") Integer size
+    ) {
+        log.info ("LOG :: FoodController getFoodDataWithPagination()");
+        return foodService.getFoodDataWithPagination(pageNumber, size);
+    }
+
+    /**
+     * ------ When using ServiceResponseDTO, SO USE ServiceResponseDTO-------
+     * response time for update -> 19-23ms
+     * response time for create -> 25ms
+     *
+     * ------ Before Using ServiceResponseDTO ------
+     * response time for update -> 24-30ms
+     */
+    @PutMapping("id/{foodId}/addOrUpdate/additive")
+    public ServiceResponseDTO addAdditiveForFood(
+            @PathVariable("foodId") Long foodId,
+            @RequestBody AdditiveDTO additiveDTO
+    ) {
+        log.info ("LOG :: FoodController addAdditiveForFood()");
+        return foodService.addAdditiveForFood(foodId, additiveDTO);
+    }
+
+    @PutMapping("id/{foodId}/addOrUpdate/expirationOrBestBefore")
+    public ServiceResponseDTO addExpirationOrBestBeforeForFood(
+            @PathVariable("foodId") Long foodId,
+            @RequestBody ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO
+    ) {
+        log.info ("LOG :: FoodController addExpirationOrBestBeforeForFood()");
+        return foodService.addExpirationOrBestBeforeForFood(foodId, expirationOrBestBeforeDTO);
+    }
+
+    @PutMapping("id/{foodId}/addOrUpdate/foodDescription")
+    public ServiceResponseDTO addFoodDescriptionForFood(
+            @PathVariable("foodId") Long foodId,
+            @RequestBody FoodDescriptionDTO foodDescriptionDTO
+    ) {
+        log.info ("LOG :: FoodController addFoodDescriptionForFood()");
+        return foodService.addFoodDescriptionForFood(foodId, foodDescriptionDTO);
+    }
+
+    @PutMapping("id/{foodId}/addOrUpdate/portion")
+    public ServiceResponseDTO addPortionForFood(
+            @PathVariable("foodId") Long foodId,
+            @RequestBody PortionDTO portionDTO
+    ) {
+        log.info ("LOG :: FoodController addPortionForFood()");
+        return foodService.addPortionForFood(foodId, portionDTO);
+    }
+
+    @PutMapping("id/{foodId}/addOrUpdate/preparationTime")
+    public ServiceResponseDTO addPreparationTimeForFood(
+            @PathVariable("foodId") Long foodId,
+            @RequestBody PreparationTimeDTO preparationTimeDTO
+    ) {
+        log.info ("LOG :: FoodController addPreparationTimeForFood()");
+        return foodService.addPreparationTimeForFood(foodId, preparationTimeDTO);
     }
 
     @PutMapping("id/{foodId}/addOrUpdate/storageInstruction")
-    public ResponseEntity<Object> addStorageInstructionForFood(
+    public ServiceResponseDTO addStorageInstructionForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody StorageInstructionDTO storageInstructionDTO
     ) {
         log.info ("LOG :: FoodController addStorageInstructionForFood()");
-        try {
-            log.info ("LOG :: FoodController addStorageInstructionForFood() inside the try");
-            return ResponseHandler.responseBuilder(foodService.addStorageInstructionForFood(foodId, storageInstructionDTO));
-        } catch (Exception e) {
-            log.warn ("LOG :: FoodController addStorageInstructionForFood() inside the catch");
-            log.warn(String.valueOf(e));
-            ServiceResponseDTO serviceResponseDTO = ServiceResponseDTO.builder()
-                    .error(e)
-                    .message("Fail")
-                    .code("500")
-                    .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .description(e.getMessage())
-                    .build();
-            return ResponseHandler.responseBuilder(serviceResponseDTO);
-        }
+        return foodService.addStorageInstructionForFood(foodId, storageInstructionDTO);
     }
+
 }
