@@ -12,8 +12,9 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdditiveResponseDTO {    private Long id;
+public class AdditiveResponseDTO {
 
+    private Long id;
     private String listOfAdditives;
     private Date createdDate;
     private Date updatedDate;
