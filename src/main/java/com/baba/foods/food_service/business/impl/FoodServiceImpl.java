@@ -1,7 +1,6 @@
 package com.baba.foods.food_service.business.impl;
 
 import com.baba.foods.food_service.business.FoodService;
-import com.baba.foods.food_service.controller.controllconfig.ResponseHandler;
 import com.baba.foods.food_service.dto.*;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import com.baba.foods.food_service.dto.response.SmellTasteTextureResponseDTO;
@@ -21,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static com.baba.foods.food_service.utility.Utility.*;
 
 @Service
 @Slf4j
@@ -65,16 +66,16 @@ public class FoodServiceImpl implements FoodService {
             }
             Food foodSave = foodRepository.save(food);
             serviceResponseDTO.setData(FoodToResponseDTO.getResponseDTO(foodSave));
-            serviceResponseDTO.setCode("200");
-            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode(STATUS_2000);
+            serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
             serviceResponseDTO.setDescription("Successfully saved the data!!!");
         } catch (Exception e) {
             log.warn ("LOG :: FoodServiceImpl addNewFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -91,16 +92,16 @@ public class FoodServiceImpl implements FoodService {
             Pageable pageable = PageRequest.of(pageNumber, size);
             Page<Food> foods = foodRepository.findAll(pageable);
             serviceResponseDTO.setData(foods);
-            serviceResponseDTO.setCode("200");
-            serviceResponseDTO.setMessage("Success");
+            serviceResponseDTO.setCode(STATUS_2000);
+            serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
             serviceResponseDTO.setDescription("Successfully received the data!!!");
         } catch (Exception e) {
             log.warn ("LOG :: FoodServiceImpl getFoodDataWithPagination() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -120,8 +121,8 @@ public class FoodServiceImpl implements FoodService {
             log.info ("LOG :: FoodServiceImpl addAdditiveForFood() inside the try");
             if (foodOptional.isEmpty()) {
                 log.warn ("LOG :: FoodServiceImpl addAdditiveForFood() foodId does not exist");
-                serviceResponseDTO.setCode("404");
-                serviceResponseDTO.setMessage("Fail");
+                serviceResponseDTO.setCode(STATUS_4040);
+                serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
             } else if (foodOptional.get().getAdditive() != null) {
@@ -130,8 +131,8 @@ public class FoodServiceImpl implements FoodService {
                 foodOptional.get().getAdditive().setCreatedDate(additiveDTO.getCreatedDate());
                 foodOptional.get().getAdditive().setUpdatedDate(additiveDTO.getUpdatedDate());
                 serviceResponseDTO.setData(AdditiveToResponseDTO.getResponseDTO(foodOptional.get().getAdditive()));
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("additives updated with new data for the particular food");
             } else {
@@ -144,8 +145,8 @@ public class FoodServiceImpl implements FoodService {
                 additive.setFood(foodOptional.get());
                 Additive additiveSave = additiveRepository.save(additive);
                 serviceResponseDTO.setData(AdditiveToResponseDTO.getResponseDTO(additiveSave));
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("additives added for food");
             }
@@ -153,8 +154,8 @@ public class FoodServiceImpl implements FoodService {
             log.warn ("LOG :: FoodServiceImpl addAdditiveForFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -171,8 +172,8 @@ public class FoodServiceImpl implements FoodService {
             log.info ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood() inside the try");
             if (foodOptional.isEmpty()) {
                 log.warn ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood() foodId does not exist");
-                serviceResponseDTO.setCode("404");
-                serviceResponseDTO.setMessage("Fail");
+                serviceResponseDTO.setCode(STATUS_4040);
+                serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
             } else if (foodOptional.get().getExpirationOrBestBefore() != null) {
@@ -183,8 +184,8 @@ public class FoodServiceImpl implements FoodService {
                 foodOptional.get().getExpirationOrBestBefore().setCreatedDate(expirationOrBestBeforeDTO.getCreatedDate());
                 foodOptional.get().getExpirationOrBestBefore().setUpdatedDate(expirationOrBestBeforeDTO.getUpdatedDate());
                 serviceResponseDTO.setData(foodOptional.get().getExpirationOrBestBefore());
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("expirationOrBestBefore updated with new data for the particular food");
             } else {
@@ -199,8 +200,8 @@ public class FoodServiceImpl implements FoodService {
                         .build();
                 ExpirationOrBestBefore expirationOrBestBeforeSave = expirationOrBestBeforeRepository.save(expirationOrBestBefore);
                 serviceResponseDTO.setData(expirationOrBestBeforeSave);
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("expirationOrBestBefore added for food");
             }
@@ -208,8 +209,8 @@ public class FoodServiceImpl implements FoodService {
             log.warn ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -226,8 +227,8 @@ public class FoodServiceImpl implements FoodService {
             log.info ("LOG :: FoodServiceImpl addFoodDescriptionForFood() inside the try");
             if (foodOptional.isEmpty()) {
                 log.warn ("LOG :: FoodServiceImpl addFoodDescriptionForFood() foodId does not exist");
-                serviceResponseDTO.setCode("404");
-                serviceResponseDTO.setMessage("Fail");
+                serviceResponseDTO.setCode(STATUS_4040);
+                serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
             } else if (foodOptional.get().getFoodDescription() != null) {
@@ -237,8 +238,8 @@ public class FoodServiceImpl implements FoodService {
                 foodOptional.get().getFoodDescription().setCreatedDate(foodDescriptionDTO.getCreatedDate());
                 foodOptional.get().getFoodDescription().setUpdatedDate(foodDescriptionDTO.getUpdatedDate());
                 serviceResponseDTO.setData(foodOptional.get().getFoodDescription());
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("foodDescription updated with new data for the particular food");
             } else {
@@ -252,8 +253,8 @@ public class FoodServiceImpl implements FoodService {
                         .build();
                 FoodDescription foodDescriptionSave = foodDescriptionRepository.save(foodDescription);
                 serviceResponseDTO.setData(foodDescriptionSave);
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("foodDescription added for food");
             }
@@ -261,8 +262,8 @@ public class FoodServiceImpl implements FoodService {
             log.warn ("LOG :: FoodServiceImpl addFoodDescriptionForFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -279,8 +280,8 @@ public class FoodServiceImpl implements FoodService {
             log.info ("LOG :: FoodServiceImpl addPortionForFood() inside the try");
             if (foodOptional.isEmpty()) {
                 log.warn ("LOG :: FoodServiceImpl addPortionForFood() foodId does not exist");
-                serviceResponseDTO.setCode("404");
-                serviceResponseDTO.setMessage("Fail");
+                serviceResponseDTO.setCode(STATUS_4040);
+                serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
             } else if (foodOptional.get().getPortion() != null) {
@@ -290,8 +291,8 @@ public class FoodServiceImpl implements FoodService {
                 foodOptional.get().getPortion().setCreatedDate(portionDTO.getCreatedDate());
                 foodOptional.get().getPortion().setUpdatedDate(portionDTO.getUpdatedDate());
                 serviceResponseDTO.setData(foodOptional.get().getPortion());
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("portion updated with new data for the particular food");
             } else {
@@ -305,8 +306,8 @@ public class FoodServiceImpl implements FoodService {
                         .build();
                 Portion portionSave = portionRepository.save(portion);
                 serviceResponseDTO.setData(portionSave);
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("portion added for food");
             }
@@ -314,8 +315,8 @@ public class FoodServiceImpl implements FoodService {
             log.warn ("LOG :: FoodServiceImpl addPortionForFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -332,8 +333,8 @@ public class FoodServiceImpl implements FoodService {
             log.info ("LOG :: FoodServiceImpl addPreparationTimeForFood() inside the try");
             if (foodOptional.isEmpty()) {
                 log.warn ("LOG :: FoodServiceImpl addPreparationTimeForFood() foodId does not exist");
-                serviceResponseDTO.setCode("404");
-                serviceResponseDTO.setMessage("Fail");
+                serviceResponseDTO.setCode(STATUS_4040);
+                serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
             } else if (foodOptional.get().getPreparationTime() != null) {
@@ -342,8 +343,8 @@ public class FoodServiceImpl implements FoodService {
                 foodOptional.get().getPreparationTime().setCreatedDate(preparationTimeDTO.getCreatedDate());
                 foodOptional.get().getPreparationTime().setUpdatedDate(preparationTimeDTO.getUpdatedDate());
                 serviceResponseDTO.setData(foodOptional.get().getPreparationTime());
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("preparationTime updated with new data for the particular food");
             } else {
@@ -356,8 +357,8 @@ public class FoodServiceImpl implements FoodService {
                         .build();
                 PreparationTime preparationTimeSave = preparationTimeRepository.save(preparationTime);
                 serviceResponseDTO.setData(preparationTimeSave);
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("preparationTime added for food");
             }
@@ -365,8 +366,8 @@ public class FoodServiceImpl implements FoodService {
             log.warn ("LOG :: FoodServiceImpl addPreparationTimeForFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -386,8 +387,8 @@ public class FoodServiceImpl implements FoodService {
             log.info ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() inside the try");
             if (foodOptional.isEmpty()) {
                 log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() foodId does not exist");
-                serviceResponseDTO.setCode("404");
-                serviceResponseDTO.setMessage("Fail");
+                serviceResponseDTO.setCode(STATUS_4040);
+                serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
             } else if (foodOptional.get().getSmell() != null || foodOptional.get().getTaste() != null || foodOptional.get().getTexture() != null) {
@@ -401,8 +402,8 @@ public class FoodServiceImpl implements FoodService {
                         .texture(foodOptional.get().getTexture())
                         .build();
                 serviceResponseDTO.setData(smellTasteTextureResponseDTO);
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("SmellTasteTexture updated with new data for the particular food");
             } else {
@@ -434,8 +435,8 @@ public class FoodServiceImpl implements FoodService {
                         .texture(textureSave)
                         .build();
                 serviceResponseDTO.setData(smellTasteTextureResponseDTO);
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("SmellTasteTexture added for food");
             }
@@ -443,8 +444,8 @@ public class FoodServiceImpl implements FoodService {
             log.warn ("LOG :: FoodServiceImpl addSmellTasteTextureForFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
@@ -461,8 +462,8 @@ public class FoodServiceImpl implements FoodService {
             log.info ("LOG :: FoodServiceImpl addStorageInstructionForFood() inside the try");
             if (foodOptional.isEmpty()) {
                 log.warn ("LOG :: FoodServiceImpl addStorageInstructionForFood() foodId does not exist");
-                serviceResponseDTO.setCode("404");
-                serviceResponseDTO.setMessage("Fail");
+                serviceResponseDTO.setCode(STATUS_4040);
+                serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
             } else if (foodOptional.get().getStorageInstructions() != null) {
@@ -471,8 +472,8 @@ public class FoodServiceImpl implements FoodService {
                 foodOptional.get().getStorageInstructions().setCreatedDate(storageInstructionDTO.getCreatedDate());
                 foodOptional.get().getStorageInstructions().setUpdatedDate(storageInstructionDTO.getUpdatedDate());
                 serviceResponseDTO.setData(foodOptional.get().getStorageInstructions());
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("storageInstruction updated with new data for the particular food");
             } else {
@@ -485,8 +486,8 @@ public class FoodServiceImpl implements FoodService {
                         .build();
                 StorageInstruction storageInstructionSave = storageInstructionRepository.save(storageInstruction);
                 serviceResponseDTO.setData(storageInstructionSave);
-                serviceResponseDTO.setMessage("Success");
-                serviceResponseDTO.setCode("200");
+                serviceResponseDTO.setMessage(STATUS_SUCCESS);
+                serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
                 serviceResponseDTO.setDescription("storageInstruction added for food");
             }
@@ -494,8 +495,8 @@ public class FoodServiceImpl implements FoodService {
             log.warn ("LOG :: FoodServiceImpl addStorageInstructionForFood() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
-            serviceResponseDTO.setMessage("Fail");
-            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
             serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             serviceResponseDTO.setDescription(e.getMessage());
         }
