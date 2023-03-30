@@ -37,6 +37,7 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- springfox is used for swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
