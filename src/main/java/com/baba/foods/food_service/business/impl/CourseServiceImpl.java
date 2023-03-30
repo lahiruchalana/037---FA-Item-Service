@@ -4,6 +4,9 @@ import com.baba.foods.food_service.business.CourseService;
 import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.CourseDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
+import com.baba.foods.food_service.entity.Course;
+import com.baba.foods.food_service.mapper.CourseToResponseDTO;
+import com.baba.foods.food_service.repository.CourseRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,8 @@ import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 @RequiredArgsConstructor
 public class CourseServiceImpl implements CourseService {
 
+    private final CourseRepository courseRepository;
+
     @Override
     @Description("Insert Course data or update Course data when pass the CourseId")
     public ServiceResponseDTO addOrUpdateCourse(CourseDTO courseDTO) {
@@ -27,8 +32,16 @@ public class CourseServiceImpl implements CourseService {
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
             log.info ("LOG :: CourseServiceImpl addOrUpdateCourse() inside the try");
-            // @TODO type logic here
-
+            Course course = new Course();
+            course.setName(courseDTO.getName());
+            course.setFoods(courseDTO.getFoods());
+            course.setCreatedDate(courseDTO.getCreatedDate());
+            course.setUpdatedDate(courseDTO.getUpdatedDate());
+            if (courseDTO.getId() != null) {
+                course.setId(courseDTO.getId());
+            }
+            Course courseSave = courseRepository.save(course);
+            serviceResponseDTO.setData(CourseToResponseDTO.getResponseDTO(courseSave));
             serviceResponseDTO.setCode(STATUS_2000);
             serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
