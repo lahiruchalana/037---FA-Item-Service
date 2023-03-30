@@ -4,6 +4,9 @@ import com.baba.foods.food_service.business.MeasuringTypeService;
 import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.MeasuringTypeDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
+import com.baba.foods.food_service.entity.MeasuringType;
+import com.baba.foods.food_service.mapper.MeasuringTypeToResponseDTO;
+import com.baba.foods.food_service.repository.MeasuringTypeRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,8 @@ import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 @RequiredArgsConstructor
 public class MeasuringTypeServiceImpl implements MeasuringTypeService {
 
+    private final MeasuringTypeRepository measuringTypeRepository;
+
     @Override
     @Description("Insert MeasuringType data or update MeasuringType data when pass the MeasuringTypeId")
     public ServiceResponseDTO addOrUpdateMeasuringType(MeasuringTypeDTO measuringTypeDTO) {
@@ -27,8 +32,17 @@ public class MeasuringTypeServiceImpl implements MeasuringTypeService {
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
             log.info ("LOG :: MeasuringTypeServiceImpl addOrUpdateMeasuringType() inside the try");
-            // @TODO type logic here
-
+            MeasuringType measuringType = new MeasuringType();
+            measuringType.setType(measuringTypeDTO.getType());
+            measuringType.setServingSize(measuringTypeDTO.getServingSize());
+            measuringType.setMetricUnit(measuringTypeDTO.getMetricUnit());
+            measuringType.setCreatedDate(measuringTypeDTO.getCreatedDate());
+            measuringType.setUpdatedDate(measuringTypeDTO.getUpdatedDate());
+            if (measuringTypeDTO.getId() != null) {
+                measuringType.setId(measuringTypeDTO.getId());
+            }
+            MeasuringType measuringTypeSave = measuringTypeRepository.save(measuringType);
+            serviceResponseDTO.setData(MeasuringTypeToResponseDTO.getResponseDTO(measuringTypeSave));
             serviceResponseDTO.setCode(STATUS_2000);
             serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);

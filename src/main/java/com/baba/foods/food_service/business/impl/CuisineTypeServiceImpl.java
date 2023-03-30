@@ -4,6 +4,9 @@ import com.baba.foods.food_service.business.CuisineTypeService;
 import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.CuisineTypeDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
+import com.baba.foods.food_service.entity.CuisineType;
+import com.baba.foods.food_service.mapper.CuisineTypeToResponseDTO;
+import com.baba.foods.food_service.repository.CuisineTypeRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,8 @@ import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 @RequiredArgsConstructor
 public class CuisineTypeServiceImpl implements CuisineTypeService {
 
+    private final CuisineTypeRepository cuisineTypeRepository;
+
     @Override
     @Description("Insert CuisineType data or update CuisineType data when pass the CuisineTypeId")
     public ServiceResponseDTO addOrUpdateCuisineType(CuisineTypeDTO cuisineTypeDTO) {
@@ -27,8 +32,16 @@ public class CuisineTypeServiceImpl implements CuisineTypeService {
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
             log.info ("LOG :: CuisineTypeServiceImpl addOrUpdateCuisineType() inside the try");
-            // @TODO type logic here
-
+            CuisineType cuisineType = new CuisineType();
+            cuisineType.setType(cuisineTypeDTO.getType());
+            cuisineType.setFoods(cuisineTypeDTO.getFoods());
+            cuisineType.setCreatedDate(cuisineTypeDTO.getCreatedDate());
+            cuisineType.setUpdatedDate(cuisineTypeDTO.getUpdatedDate());
+            if (cuisineTypeDTO.getId() != null) {
+                cuisineType.setId(cuisineTypeDTO.getId());
+            }
+            CuisineType cuisineTypeSave = cuisineTypeRepository.save(cuisineType);
+            serviceResponseDTO.setData(CuisineTypeToResponseDTO.getResponseDTO(cuisineTypeSave));
             serviceResponseDTO.setCode(STATUS_2000);
             serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
