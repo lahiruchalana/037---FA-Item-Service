@@ -1,6 +1,8 @@
 package com.baba.foods.food_service.business.impl;
 
+import com.baba.foods.food_service.business.CourseService;
 import com.baba.foods.food_service.dto.CookingMethodDTO;
+import com.baba.foods.food_service.dto.CourseDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +18,15 @@ import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 @Slf4j
 @Transactional
 @RequiredArgsConstructor
-public class CourseServiceImpl {
+public class CourseServiceImpl implements CourseService {
 
     @Override
-    @Description("Insert CookingMethod data or update CookingMethod data when pass the CookingMethodId")
-    public ServiceResponseDTO addOrUpdateCookingMethod(CookingMethodDTO cookingMethodDTO) {
-        log.info ("LOG :: CookingMethodServiceImpl addOrUpdateFood()");
+    @Description("Insert Course data or update Course data when pass the CourseId")
+    public ServiceResponseDTO addOrUpdateCourse(CourseDTO courseDTO) {
+        log.info ("LOG :: CourseServiceImpl addOrUpdateCourse()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
-            log.info ("LOG :: CookingMethodServiceImpl addOrUpdateFood() inside the try");
+            log.info ("LOG :: CourseServiceImpl addOrUpdateCourse() inside the try");
             // @TODO type logic here
 
             serviceResponseDTO.setCode(STATUS_2000);
@@ -32,7 +34,7 @@ public class CourseServiceImpl {
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
             serviceResponseDTO.setDescription("Successfully saved the data!!!");
         } catch (Exception e) {
-            log.info ("LOG :: CookingMethodServiceImpl addOrUpdateFood() inside the catch");
+            log.info ("LOG :: CourseServiceImpl addOrUpdateCourse() inside the catch");
             log.warn(String.valueOf(e));
             serviceResponseDTO.setError(e);
             serviceResponseDTO.setMessage(STATUS_FAIL);
