@@ -1,6 +1,8 @@
 package com.baba.foods.food_service.dto;
 
+import com.baba.foods.food_service.entity.Food;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ThemeDTO {
@@ -16,6 +19,6 @@ public class ThemeDTO {
     private String name;
     private Date createdDate;
     private Date updatedDate;
-    private Set<Long> foodIds;
+    private Set<Food> foods;
 
 }

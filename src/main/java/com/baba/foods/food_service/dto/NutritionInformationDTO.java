@@ -2,6 +2,7 @@ package com.baba.foods.food_service.dto;
 
 import com.baba.foods.food_service.entity.Food;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class NutritionInformationDTO {
