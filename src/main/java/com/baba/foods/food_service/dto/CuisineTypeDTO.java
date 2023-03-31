@@ -1,5 +1,6 @@
 package com.baba.foods.food_service.dto;
 
+import com.baba.foods.food_service.configuration.customAnnotations.NotEmptyOrNull;
 import com.baba.foods.food_service.entity.Food;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,9 +18,11 @@ public class CuisineTypeDTO {
 
 
     private Long id;
+    @NotEmptyOrNull(message = "Type Must Not Be Empty")
     private String type;
     private Date createdDate;
     private Date updatedDate;
+    @NotEmptyOrNull(message = "Food Must Not Be Empty")
     private Set<Food> foods;
 
 }

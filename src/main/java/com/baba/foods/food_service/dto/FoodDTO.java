@@ -1,5 +1,6 @@
 package com.baba.foods.food_service.dto;
 
+import com.baba.foods.food_service.configuration.customAnnotations.NotEmptyOrNull;
 import com.baba.foods.food_service.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.util.Set;
 public class FoodDTO {
 
     private Long id;
+    @NotEmptyOrNull(message = "Name Must Not Be Empty")
     private String name;
     private DietaryRestriction dietaryRestriction;
     private CuisineType cuisineType;
