@@ -4,6 +4,9 @@ import com.baba.foods.food_service.business.NutritionInformationService;
 import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.NutritionInformationDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
+import com.baba.foods.food_service.entity.NutritionInformation;
+import com.baba.foods.food_service.mapper.NutritionInformationToResponseDTO;
+import com.baba.foods.food_service.repository.NutritionInformationRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,8 @@ import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 @RequiredArgsConstructor
 public class NutritionInformationServiceImpl implements NutritionInformationService {
 
+    private final NutritionInformationRepository nutritionInformationRepository;
+
     @Override
     @Description("Insert NutritionInformation data or update NutritionInformation data when pass the NutritionInformationId")
     public ServiceResponseDTO addOrUpdateNutritionInformation(NutritionInformationDTO nutritionInformationDTO) {
@@ -27,8 +32,16 @@ public class NutritionInformationServiceImpl implements NutritionInformationServ
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
             log.info ("LOG :: NutritionInformationServiceImpl addOrUpdateNutritionInformation() inside the try");
-            // @TODO type logic here
-
+            NutritionInformation nutritionInformation = new NutritionInformation();
+            nutritionInformation.setInformation(nutritionInformationDTO.getInformation());
+            nutritionInformation.setFood(nutritionInformationDTO.getFood());
+            nutritionInformation.setCreatedDate(nutritionInformationDTO.getCreatedDate());
+            nutritionInformation.setUpdatedDate(nutritionInformationDTO.getUpdatedDate());
+            if (nutritionInformationDTO.getId() != null) {
+                nutritionInformation.setId(nutritionInformationDTO.getId());
+            }
+            NutritionInformation nutritionInformationSave = nutritionInformationRepository.save(nutritionInformation);
+            serviceResponseDTO.setData(NutritionInformationToResponseDTO.getResponseDTO(nutritionInformationSave));
             serviceResponseDTO.setCode(STATUS_2000);
             serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);

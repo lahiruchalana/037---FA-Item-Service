@@ -4,6 +4,11 @@ import com.baba.foods.food_service.business.ThemeService;
 import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.ThemeDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
+import com.baba.foods.food_service.entity.NutritionInformation;
+import com.baba.foods.food_service.entity.Theme;
+import com.baba.foods.food_service.mapper.NutritionInformationToResponseDTO;
+import com.baba.foods.food_service.mapper.ThemeToResponseDTO;
+import com.baba.foods.food_service.repository.ThemeRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +25,8 @@ import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 @RequiredArgsConstructor
 public class ThemeServiceImpl implements ThemeService {
 
+    private final ThemeRepository themeRepository;
+
     @Override
     @Description("Insert Theme data or update Theme data when pass the ThemeId")
     public ServiceResponseDTO addOrUpdateTheme(ThemeDTO themeDTO) {
@@ -27,8 +34,16 @@ public class ThemeServiceImpl implements ThemeService {
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
             log.info ("LOG :: ThemeServiceImpl addOrUpdateTheme() inside the try");
-            // @TODO type logic here
-
+            Theme theme = new Theme();
+            theme.setName(themeDTO.getName());
+            theme.setFoods(themeDTO.getFoods());
+            theme.setCreatedDate(themeDTO.getCreatedDate());
+            theme.setUpdatedDate(themeDTO.getUpdatedDate());
+            if (themeDTO.getId() != null) {
+                theme.setId(themeDTO.getId());
+            }
+            Theme themeSave = themeRepository.save(theme);
+            serviceResponseDTO.setData(ThemeToResponseDTO.getResponseDTO(themeSave));
             serviceResponseDTO.setCode(STATUS_2000);
             serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);

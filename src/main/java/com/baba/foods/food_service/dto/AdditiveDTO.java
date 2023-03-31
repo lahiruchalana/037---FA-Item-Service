@@ -1,5 +1,6 @@
 package com.baba.foods.food_service.dto;
 
+import com.baba.foods.food_service.configuration.customAnnotations.NotEmptyOrNull;
 import com.baba.foods.food_service.entity.Food;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,11 @@ import java.util.Date;
 public class AdditiveDTO {
 
     private Long id;
+    @NotEmptyOrNull(message = "ListOfAdditives Must Not Be Empty")
     private String listOfAdditives;
     private Date createdDate;
     private Date updatedDate;
+    @NotEmptyOrNull(message = "Food Must Not Be Empty")
     private Food food;
 
 }

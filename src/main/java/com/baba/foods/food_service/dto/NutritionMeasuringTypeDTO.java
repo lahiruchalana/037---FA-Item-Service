@@ -1,5 +1,6 @@
 package com.baba.foods.food_service.dto;
 
+import com.baba.foods.food_service.configuration.customAnnotations.NotEmptyOrNull;
 import com.baba.foods.food_service.entity.NutritionServingSize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,10 +16,13 @@ import java.util.Set;
 public class NutritionMeasuringTypeDTO {
 
     private Long id;
+    @NotEmptyOrNull(message = "Type Must Not Be Empty")
     private String type;
+    @NotEmptyOrNull(message = "MetricUnit Must Not Be Empty")
     private String metricUnit;
     private Date createdDate;
     private Date updatedDate;
+    @NotEmptyOrNull(message = "NutritionServingSizes Must Not Be Empty")
     private Set<NutritionServingSize> nutritionServingSizes;
 
 }

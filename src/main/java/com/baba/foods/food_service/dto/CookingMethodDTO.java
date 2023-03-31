@@ -1,5 +1,6 @@
 package com.baba.foods.food_service.dto;
 
+import com.baba.foods.food_service.configuration.customAnnotations.NotEmptyOrNull;
 import com.baba.foods.food_service.entity.Food;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +17,11 @@ import java.util.Set;
 public class CookingMethodDTO {
 
     private Long id;
+    @NotEmptyOrNull(message = "Method Must Not Be Empty")
     private String method;
     private Date createdDate;
     private Date updatedDate;
+    @NotEmptyOrNull(message = "Foods Must Not Be Empty")
     private Set<Food> foods;
 
 }
