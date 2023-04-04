@@ -1,7 +1,6 @@
 package com.baba.foods.food_service.business.impl;
 
 import com.baba.foods.food_service.business.CuisineTypeService;
-import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.CuisineTypeDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import com.baba.foods.food_service.entity.CuisineType;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.baba.foods.food_service.utility.Utility.*;
-import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 
 @Service
 @Slf4j

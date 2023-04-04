@@ -2,7 +2,6 @@ package com.baba.foods.food_service.controller;
 
 import com.baba.foods.food_service.business.CookingMethodService;
 import com.baba.foods.food_service.dto.CookingMethodDTO;
-import com.baba.foods.food_service.dto.FoodDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
