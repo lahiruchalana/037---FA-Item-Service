@@ -11,6 +11,7 @@ import com.baba.foods.food_service.repository.*;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static com.baba.foods.food_service.utility.Utility.*;
+import static java.lang.Thread.sleep;
 
 @Service
 @Slf4j
@@ -84,6 +86,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Description("Get food data with pagination")
+    @Cacheable(value = "foodPaginationCache")
     public ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size) {
         log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
