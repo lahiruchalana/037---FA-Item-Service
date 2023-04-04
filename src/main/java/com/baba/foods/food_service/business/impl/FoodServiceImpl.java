@@ -91,7 +91,6 @@ public class FoodServiceImpl implements FoodService {
         log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
-            Thread.sleep(2000);
             log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination() inside the try");
             Pageable pageable = PageRequest.of(pageNumber, size);
             Page<Food> foods = foodRepository.findAll(pageable);
