@@ -22,10 +22,23 @@ spring:
         jdbc:
           time_zone: UTC
 
+ # End point URLs
+endpoints:
+  food:
+    url: api/food
+    methods:
+      post: /send
+      post-smell-taste-texture-by-id: id/{foodId}/addOrUpdate/smellTasteTexture
+  cooking-method:
+    url: api/cooking-method
+  order:
+    url: /api/orders
+
+
   # Cors Allow(White List)
 allow:
   headers: Content-Type,Authorization
-  origin: https://qa-pay-cloudofgoods.incubatelabs.com,https://qa-cloudofgoods.incubatelabs.com,https://qa-v2-cloudofgoods.incubatelabs.com,https://www.cloudofgoods.com,https://qa-v4-cloudofgoods.incubatelabs.com,http://localhost:3000
+  origin: http://localhost:3000
 cloudOfGoods:
   redis:
     #    host: cogv5-qa.emqrxr.ng.0001.usw2.cache.amazonaws.com

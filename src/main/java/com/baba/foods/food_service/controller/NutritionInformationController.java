@@ -1,7 +1,6 @@
 package com.baba.foods.food_service.controller;
 
 import com.baba.foods.food_service.business.NutritionInformationService;
-import com.baba.foods.food_service.dto.MeasuringTypeDTO;
 import com.baba.foods.food_service.dto.NutritionInformationDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import lombok.RequiredArgsConstructor;

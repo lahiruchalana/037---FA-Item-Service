@@ -1,12 +1,9 @@
 package com.baba.foods.food_service.business.impl;
 
 import com.baba.foods.food_service.business.ThemeService;
-import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.ThemeDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
-import com.baba.foods.food_service.entity.NutritionInformation;
 import com.baba.foods.food_service.entity.Theme;
-import com.baba.foods.food_service.mapper.NutritionInformationToResponseDTO;
 import com.baba.foods.food_service.mapper.ThemeToResponseDTO;
 import com.baba.foods.food_service.repository.ThemeRepository;
 import jdk.jfr.Description;
@@ -17,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.baba.foods.food_service.utility.Utility.*;
-import static com.baba.foods.food_service.utility.Utility.STATUS_5000;
 
 @Service
 @Slf4j

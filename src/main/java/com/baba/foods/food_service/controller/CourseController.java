@@ -1,7 +1,6 @@
 package com.baba.foods.food_service.controller;
 
 import com.baba.foods.food_service.business.CourseService;
-import com.baba.foods.food_service.dto.CookingMethodDTO;
 import com.baba.foods.food_service.dto.CourseDTO;
 import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 import lombok.RequiredArgsConstructor;
