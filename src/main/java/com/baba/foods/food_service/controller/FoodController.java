@@ -7,6 +7,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * There is an issue with "${}", only works with @Value annotation not in others
+ * @TODO - add "${end-points}"
+ */
+
 @RestController
 @RequestMapping("api/food")
 @RequiredArgsConstructor
