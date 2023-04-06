@@ -51,7 +51,7 @@ public class FoodServiceImpl implements FoodService {
      */
     @Override
     @Description("Insert food data")
-    public ServiceResponseDTO addNewFood(FoodDTO foodDTO) {
+    public ServiceResponseDTO addOrUpdateFood(FoodDTO foodDTO) {
         log.info ("LOG :: FoodServiceImpl addNewFood()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
@@ -115,7 +115,7 @@ public class FoodServiceImpl implements FoodService {
     @Description("Additive added for a food, " +
             "One food exist only one additive, " +
             "So if there is a additive available for a particular food then it will be updated with new additive")
-    public ServiceResponseDTO addAdditiveForFood(Long foodId, AdditiveDTO additiveDTO) {
+    public ServiceResponseDTO addOrUpdateAdditiveForFood(Long foodId, AdditiveDTO additiveDTO) {
         log.info ("LOG :: FoodServiceImpl addAdditiveForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
         System.out.println(foodOptional);
@@ -166,7 +166,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public ServiceResponseDTO addExpirationOrBestBeforeForFood(Long foodId, ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO) {
+    public ServiceResponseDTO addOrUpdateExpirationOrBestBeforeForFood(Long foodId, ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO) {
         log.info ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
         System.out.println(foodOptional);
@@ -221,7 +221,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public ServiceResponseDTO addFoodDescriptionForFood(Long foodId, FoodDescriptionDTO foodDescriptionDTO) {
+    public ServiceResponseDTO addOrUpdateFoodDescriptionForFood(Long foodId, FoodDescriptionDTO foodDescriptionDTO) {
         log.info ("LOG :: FoodServiceImpl addFoodDescriptionForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
         System.out.println(foodOptional);
@@ -274,7 +274,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public ServiceResponseDTO addPortionForFood(Long foodId, PortionDTO portionDTO) {
+    public ServiceResponseDTO addOrUpdatePortionForFood(Long foodId, PortionDTO portionDTO) {
         log.info ("LOG :: FoodServiceImpl addPortionForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
         System.out.println(foodOptional);
@@ -327,7 +327,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public ServiceResponseDTO addPreparationTimeForFood(Long foodId, PreparationTimeDTO preparationTimeDTO) {
+    public ServiceResponseDTO addOrUpdatePreparationTimeForFood(Long foodId, PreparationTimeDTO preparationTimeDTO) {
         log.info ("LOG :: FoodServiceImpl addPreparationTimeForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
         System.out.println(foodOptional);
@@ -382,7 +382,7 @@ public class FoodServiceImpl implements FoodService {
             "adding smell, taste and texture is happening at same time" +
             "also updating smell, taste and texture is happening at same time")
     @Async
-    public ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO) {
+    public ServiceResponseDTO addOrUpdateSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO) {
         log.info ("LOG :: FoodServiceImpl addSmellTasteTextureForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
@@ -456,7 +456,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public ServiceResponseDTO addStorageInstructionForFood(Long foodId, StorageInstructionDTO storageInstructionDTO) {
+    public ServiceResponseDTO addOrUpdateStorageInstructionForFood(Long foodId, StorageInstructionDTO storageInstructionDTO) {
         log.info ("LOG :: FoodServiceImpl addStorageInstructionForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
         System.out.println(foodOptional);
