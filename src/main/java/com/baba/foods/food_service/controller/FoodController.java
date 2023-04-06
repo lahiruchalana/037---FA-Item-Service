@@ -27,11 +27,11 @@ public class FoodController {
      * @TODO - add custom exceptions for receiving error messages
      */
     @PostMapping("/send")
-    public ServiceResponseDTO addNewFood(
+    public ServiceResponseDTO addOrUpdateFood(
             @RequestBody FoodDTO foodDTO
     ) {
         log.info ("LOG :: FoodController addNewFood()");
-        return foodService.addNewFood(foodDTO);
+        return foodService.addOrUpdateFood(foodDTO);
     }
 
     /**
@@ -44,12 +44,12 @@ public class FoodController {
      * save response time -> 30ms -50ms
      */
     @PutMapping("id/{foodId}/addOrUpdate/smellTasteTexture")
-    public ServiceResponseDTO addSmellTasteTextureForFood(
+    public ServiceResponseDTO addOrUpdateSmellTasteTextureForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody SmellTasteTextureDTO smellTasteTextureDTO
     ) {
         log.info ("LOG :: FoodController addSmellTasteTextureForFood()");
-        return foodService.addSmellTasteTextureForFood(foodId, smellTasteTextureDTO);
+        return foodService.addOrUpdateSmellTasteTextureForFood(foodId, smellTasteTextureDTO);
     }
 
     @GetMapping("/get/page/{pageNumber}/size/{size}")
@@ -70,57 +70,57 @@ public class FoodController {
      * response time for update -> 24-30ms
      */
     @PutMapping("id/{foodId}/addOrUpdate/additive")
-    public ServiceResponseDTO addAdditiveForFood(
+    public ServiceResponseDTO addOrUpdateAdditiveForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody AdditiveDTO additiveDTO
     ) {
         log.info ("LOG :: FoodController addAdditiveForFood()");
-        return foodService.addAdditiveForFood(foodId, additiveDTO);
+        return foodService.addOrUpdateAdditiveForFood(foodId, additiveDTO);
     }
 
     @PutMapping("id/{foodId}/addOrUpdate/expirationOrBestBefore")
-    public ServiceResponseDTO addExpirationOrBestBeforeForFood(
+    public ServiceResponseDTO addOrUpdateExpirationOrBestBeforeForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO
     ) {
         log.info ("LOG :: FoodController addExpirationOrBestBeforeForFood()");
-        return foodService.addExpirationOrBestBeforeForFood(foodId, expirationOrBestBeforeDTO);
+        return foodService.addOrUpdateExpirationOrBestBeforeForFood(foodId, expirationOrBestBeforeDTO);
     }
 
     @PutMapping("id/{foodId}/addOrUpdate/foodDescription")
-    public ServiceResponseDTO addFoodDescriptionForFood(
+    public ServiceResponseDTO addOrUpdateFoodDescriptionForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody FoodDescriptionDTO foodDescriptionDTO
     ) {
         log.info ("LOG :: FoodController addFoodDescriptionForFood()");
-        return foodService.addFoodDescriptionForFood(foodId, foodDescriptionDTO);
+        return foodService.addOrUpdateFoodDescriptionForFood(foodId, foodDescriptionDTO);
     }
 
     @PutMapping("id/{foodId}/addOrUpdate/portion")
-    public ServiceResponseDTO addPortionForFood(
+    public ServiceResponseDTO addOrUpdatePortionForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody PortionDTO portionDTO
     ) {
         log.info ("LOG :: FoodController addPortionForFood()");
-        return foodService.addPortionForFood(foodId, portionDTO);
+        return foodService.addOrUpdatePortionForFood(foodId, portionDTO);
     }
 
     @PutMapping("id/{foodId}/addOrUpdate/preparationTime")
-    public ServiceResponseDTO addPreparationTimeForFood(
+    public ServiceResponseDTO addOrUpdatePreparationTimeForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody PreparationTimeDTO preparationTimeDTO
     ) {
         log.info ("LOG :: FoodController addPreparationTimeForFood()");
-        return foodService.addPreparationTimeForFood(foodId, preparationTimeDTO);
+        return foodService.addOrUpdatePreparationTimeForFood(foodId, preparationTimeDTO);
     }
 
     @PutMapping("id/{foodId}/addOrUpdate/storageInstruction")
-    public ServiceResponseDTO addStorageInstructionForFood(
+    public ServiceResponseDTO addOrUpdateStorageInstructionForFood(
             @PathVariable("foodId") Long foodId,
             @RequestBody StorageInstructionDTO storageInstructionDTO
     ) {
         log.info ("LOG :: FoodController addStorageInstructionForFood()");
-        return foodService.addStorageInstructionForFood(foodId, storageInstructionDTO);
+        return foodService.addOrUpdateStorageInstructionForFood(foodId, storageInstructionDTO);
     }
 
 }

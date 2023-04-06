@@ -5,23 +5,23 @@ import com.baba.foods.food_service.dto.response.ServiceResponseDTO;
 
 public interface FoodService {
 
-    ServiceResponseDTO addNewFood(FoodDTO foodDTO);
+    ServiceResponseDTO addOrUpdateFood(FoodDTO foodDTO);
 
     ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size);
 
-    ServiceResponseDTO addAdditiveForFood(Long foodId, AdditiveDTO additiveDTO);
+    ServiceResponseDTO addOrUpdateAdditiveForFood(Long foodId, AdditiveDTO additiveDTO);
 
-    ServiceResponseDTO addExpirationOrBestBeforeForFood(Long foodId, ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO);
+    ServiceResponseDTO addOrUpdateExpirationOrBestBeforeForFood(Long foodId, ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO);
 
-    ServiceResponseDTO addFoodDescriptionForFood(Long foodId, FoodDescriptionDTO foodDescriptionDTO);
+    ServiceResponseDTO addOrUpdateFoodDescriptionForFood(Long foodId, FoodDescriptionDTO foodDescriptionDTO);
 
-    ServiceResponseDTO addPortionForFood(Long foodId, PortionDTO portionDTO);
+    ServiceResponseDTO addOrUpdatePortionForFood(Long foodId, PortionDTO portionDTO);
 
-    ServiceResponseDTO addPreparationTimeForFood(Long foodId, PreparationTimeDTO preparationTimeDTO);
+    ServiceResponseDTO addOrUpdatePreparationTimeForFood(Long foodId, PreparationTimeDTO preparationTimeDTO);
 
-    ServiceResponseDTO addSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO);
+    ServiceResponseDTO addOrUpdateSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO);
 
-    ServiceResponseDTO addStorageInstructionForFood(Long foodId, StorageInstructionDTO storageInstructionDTO);
+    ServiceResponseDTO addOrUpdateStorageInstructionForFood(Long foodId, StorageInstructionDTO storageInstructionDTO);
 
     ServiceResponseDTO updateFoodData(Long foodId, FoodDTO foodDTO);
 
