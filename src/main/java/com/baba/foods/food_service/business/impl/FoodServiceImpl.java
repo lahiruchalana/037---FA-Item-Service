@@ -86,7 +86,7 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Description("Get food data with pagination")
-    @Cacheable(value = "foodPaginationCache")
+    @Cacheable(key = "101", value = "location")
     public ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size) {
         log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();

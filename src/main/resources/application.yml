@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/fa_item_db?createDatabaseIfNotExist=true&useSSL=false
-    username: root
-    password: 1111
+    url: jdbc:mysql://localhost:3306/fa_item_db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: lahiru
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver # MySQL database config
 
   # JPA CONFIGURATIONS
@@ -22,7 +22,16 @@ spring:
         jdbc:
           time_zone: UTC
 
- # End point URLs
+redis:
+  timeout:
+    auto-complete-minutes: 10
+    location-minutes: 20
+
+cloudOfGoods:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
 endpoints:
   food:
     url: api/food
@@ -39,11 +48,6 @@ endpoints:
 allow:
   headers: Content-Type,Authorization
   origin: http://localhost:3000
-cloudOfGoods:
-  redis:
-    #    host: cogv5-qa.emqrxr.ng.0001.usw2.cache.amazonaws.com
-    host: localhost
-    port: 6379
 
 category:
   cache:
