@@ -17,7 +17,7 @@ public class CachingConfig {
     @Value("${redis.timeout.auto-complete-minutes}")
     private Long autocomplete;
 
-    @Value("${redis.timeout.location-minutes}")
+    @Value("${redis.timeout.locationTime}")
     private Long location;
     @Bean
     RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {

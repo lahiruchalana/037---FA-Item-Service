@@ -13,7 +13,7 @@ public class FoodToResponseDTO {
                 .cuisineType(food.getCuisineType())
                 .course(food.getCourse())
                 .cookingMethod(food.getCookingMethod())
-//                .themes(food.getThemes())
+                .themes(food.getThemes())
                 .expirationOrBestBefore(food.getExpirationOrBestBefore())
                 .foodDescription(food.getFoodDescription())
                 .images(food.getImages())

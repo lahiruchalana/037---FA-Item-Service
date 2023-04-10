@@ -20,7 +20,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static com.baba.foods.food_service.utility.Utility.*;
 import static java.lang.Thread.sleep;
@@ -86,15 +89,51 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     @Description("Get food data with pagination")
-    @Cacheable(key = "101", value = "location")
+    @Cacheable(key = "#pageNumber.toString().concat(#size.toString())", value = "location")
     public ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size) {
         log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
         try {
             log.info ("LOG :: FoodServiceImpl getFoodDataWithPagination() inside the try");
-            Pageable pageable = PageRequest.of(pageNumber, size);
-            Page<Food> foods = foodRepository.findAll(pageable);
-            serviceResponseDTO.setData(foods);
+            Page<Food> foods = foodRepository.findAll(PageRequest.of(pageNumber, size));
+            /**
+             * Here we are using foodList list to reduce caching error
+             * There is a cache error when I pass the foods (pagination) page
+             */
+            List<Food> foodList = new ArrayList<>();
+            IntStream.range(0, foods.getContent().size()).forEach(i -> {
+                Food foodNew = new Food();
+                foodNew.setId(foods.getContent().get(i).getId());
+                foodNew.setName(foods.getContent().get(i).getName());
+                foodNew.setDietaryRestriction(foods.getContent().get(i).getDietaryRestriction());
+                foodNew.setCuisineType(foods.getContent().get(i).getCuisineType());
+                foodNew.setCourse(foods.getContent().get(i).getCourse());
+                foodNew.setCookingMethod(foods.getContent().get(i).getCookingMethod());
+//                foodNew.setThemes(foods.getContent().get(i).getThemes());
+//                foodNew.setAllergens(foods.getContent().get(i).getAllergens());
+                foodNew.setExpirationOrBestBefore(foods.getContent().get(i).getExpirationOrBestBefore());
+//                foodNew.setCookingInstructions(foods.getContent().get(i).getCookingInstructions());
+                foodNew.setFoodDescription(foods.getContent().get(i).getFoodDescription());
+//                foodNew.setHealthClaims(foods.getContent().get(i).getHealthClaims());
+//                foodNew.setImages(foods.getContent().get(i).getImages());
+//                foodNew.setIngredients(foods.getContent().get(i).getIngredients());
+//                foodNew.setQuantities(foods.getContent().get(i).getQuantities());
+//                foodNew.setNutritionInformationSet(foods.getContent().get(i).getNutritionInformationSet());
+//                foodNew.setPackagingSet(foods.getContent().get(i).getPackagingSet());
+//                foodNew.setPlaceOfOriginSet(foods.getContent().get(i).getPlaceOfOriginSet());
+                foodNew.setPreparationTime(foods.getContent().get(i).getPreparationTime());
+                foodNew.setAdditive(foods.getContent().get(i).getAdditive());
+//                foodNew.setAppearances(foods.getContent().get(i).getAppearances());
+                foodNew.setAvailability(foods.getContent().get(i).getAvailability());
+//                foodNew.setNutritionServingSizes(foods.getContent().get(i).getNutritionServingSizes());
+                foodNew.setPortion(foods.getContent().get(i).getPortion());
+                foodNew.setSmell(foods.getContent().get(i).getSmell());
+                foodNew.setStorageInstructions(foods.getContent().get(i).getStorageInstructions());
+                foodNew.setTaste(foods.getContent().get(i).getTaste());
+                foodNew.setTexture(foods.getContent().get(i).getTexture());
+                foodList.add(foodNew);
+            });
+            serviceResponseDTO.setData(foodList);
             serviceResponseDTO.setCode(STATUS_2000);
             serviceResponseDTO.setMessage(STATUS_SUCCESS);
             serviceResponseDTO.setHttpStatus(HttpStatus.OK);
