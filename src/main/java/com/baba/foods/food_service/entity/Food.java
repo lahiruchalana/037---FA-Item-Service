@@ -131,7 +131,7 @@ public class Food implements SuperEntity {
 
     @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnoreProperties("food")
-    private StorageInstruction storageInstructions;
+    private StorageInstruction storageInstruction;
 
     @OneToOne(mappedBy = "food", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JsonIgnoreProperties("food")

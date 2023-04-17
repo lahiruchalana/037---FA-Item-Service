@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @Getter
 @Table(name = "theme")
-public class Theme implements SuperEntity{
+public class Theme implements SuperEntity {
 
     /**
      * Theme - special theme like seafood, BBQ

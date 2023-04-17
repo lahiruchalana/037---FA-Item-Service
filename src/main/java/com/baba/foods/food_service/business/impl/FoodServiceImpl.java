@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -26,7 +25,6 @@ import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static com.baba.foods.food_service.utility.Utility.*;
-import static java.lang.Thread.sleep;
 
 @Service
 @Slf4j
@@ -60,6 +58,9 @@ public class FoodServiceImpl implements FoodService {
         try {
             log.info ("LOG :: FoodServiceImpl addNewFood() inside the try");
             Food food = new Food();
+            /**
+             * @TODO - should set other properties of FoodDTO to Food
+             */
             food.setName(foodDTO.getName());
             food.setDietaryRestriction(foodDTO.getDietaryRestriction());
             food.setCuisineType(foodDTO.getCuisineType());
@@ -128,7 +129,7 @@ public class FoodServiceImpl implements FoodService {
 //                foodNew.setNutritionServingSizes(foods.getContent().get(i).getNutritionServingSizes());
                 foodNew.setPortion(foods.getContent().get(i).getPortion());
                 foodNew.setSmell(foods.getContent().get(i).getSmell());
-                foodNew.setStorageInstructions(foods.getContent().get(i).getStorageInstructions());
+                foodNew.setStorageInstruction(foods.getContent().get(i).getStorageInstruction());
                 foodNew.setTaste(foods.getContent().get(i).getTaste());
                 foodNew.setTexture(foods.getContent().get(i).getTexture());
                 foodList.add(foodNew);
@@ -508,12 +509,12 @@ public class FoodServiceImpl implements FoodService {
                 serviceResponseDTO.setMessage(STATUS_FAIL);
                 serviceResponseDTO.setHttpStatus(HttpStatus.NOT_FOUND);
                 serviceResponseDTO.setDescription("foodId does not exist");
-            } else if (foodOptional.get().getStorageInstructions() != null) {
+            } else if (foodOptional.get().getStorageInstruction() != null) {
                 log.warn ("LOG :: FoodServiceImpl addStorageInstructionForFood() foodId exists && food has a storageInstruction - to update storageInstruction");
-                foodOptional.get().getStorageInstructions().setInstruction(storageInstructionDTO.getInstruction());
-                foodOptional.get().getStorageInstructions().setCreatedDate(storageInstructionDTO.getCreatedDate());
-                foodOptional.get().getStorageInstructions().setUpdatedDate(storageInstructionDTO.getUpdatedDate());
-                serviceResponseDTO.setData(foodOptional.get().getStorageInstructions());
+                foodOptional.get().getStorageInstruction().setInstruction(storageInstructionDTO.getInstruction());
+                foodOptional.get().getStorageInstruction().setCreatedDate(storageInstructionDTO.getCreatedDate());
+                foodOptional.get().getStorageInstruction().setUpdatedDate(storageInstructionDTO.getUpdatedDate());
+                serviceResponseDTO.setData(foodOptional.get().getStorageInstruction());
                 serviceResponseDTO.setMessage(STATUS_SUCCESS);
                 serviceResponseDTO.setCode(STATUS_2000);
                 serviceResponseDTO.setHttpStatus(HttpStatus.OK);
