@@ -35,13 +35,13 @@ public class FoodDTO {
     private Set<Packaging> packagingSet;
     private Set<PlaceOfOrigin> placeOfOriginSet;
     private PreparationTime preparationTime;
-    private Additive additives;
+    private Additive additive;
     private Set<Appearance> appearances;
     private Availability availability;
     private Set<NutritionServingSize> nutritionServingSizes;
     private Portion portion;
     private Smell smell;
-    private Set<StorageInstruction> storageInstructions;
+    private StorageInstruction storageInstruction;
     private Taste taste;
     private Texture texture;
     private Date createdDate;
