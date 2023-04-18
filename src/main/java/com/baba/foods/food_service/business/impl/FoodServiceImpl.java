@@ -12,6 +12,7 @@ import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -157,6 +158,7 @@ public class FoodServiceImpl implements FoodService {
     @Description("Additive added for a food, " +
             "One food exist only one additive, " +
             "So if there is a additive available for a particular food then it will be updated with new additive")
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdateAdditiveForFood(Long foodId, AdditiveDTO additiveDTO) {
         log.info ("LOG :: FoodServiceImpl addAdditiveForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
@@ -208,6 +210,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdateExpirationOrBestBeforeForFood(Long foodId, ExpirationOrBestBeforeDTO expirationOrBestBeforeDTO) {
         log.info ("LOG :: FoodServiceImpl addExpirationOrBestBeforeForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
@@ -263,6 +266,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdateFoodDescriptionForFood(Long foodId, FoodDescriptionDTO foodDescriptionDTO) {
         log.info ("LOG :: FoodServiceImpl addFoodDescriptionForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
@@ -316,6 +320,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdatePortionForFood(Long foodId, PortionDTO portionDTO) {
         log.info ("LOG :: FoodServiceImpl addPortionForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
@@ -369,6 +374,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdatePreparationTimeForFood(Long foodId, PreparationTimeDTO preparationTimeDTO) {
         log.info ("LOG :: FoodServiceImpl addPreparationTimeForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
@@ -424,6 +430,7 @@ public class FoodServiceImpl implements FoodService {
             "adding smell, taste and texture is happening at same time" +
             "also updating smell, taste and texture is happening at same time")
     @Async
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdateSmellTasteTextureForFood(Long foodId, SmellTasteTextureDTO smellTasteTextureDTO) {
         log.info ("LOG :: FoodServiceImpl addSmellTasteTextureForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
@@ -498,6 +505,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdateStorageInstructionForFood(Long foodId, StorageInstructionDTO storageInstructionDTO) {
         log.info ("LOG :: FoodServiceImpl addStorageInstructionForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
@@ -549,6 +557,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO updateFoodData(Long foodId, FoodDTO foodDTO) {
         return null;
     }

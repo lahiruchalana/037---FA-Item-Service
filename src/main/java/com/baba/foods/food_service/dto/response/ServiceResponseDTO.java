@@ -5,11 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 @Data
 @Builder
