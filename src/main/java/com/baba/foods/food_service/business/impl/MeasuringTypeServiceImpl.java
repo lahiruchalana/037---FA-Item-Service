@@ -9,6 +9,7 @@ import com.baba.foods.food_service.repository.MeasuringTypeRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class MeasuringTypeServiceImpl implements MeasuringTypeService {
 
     @Override
     @Description("Insert MeasuringType data or update MeasuringType data when pass the MeasuringTypeId")
+    @CacheEvict(value = "measuringType", allEntries = true)
     public ServiceResponseDTO addOrUpdateMeasuringType(MeasuringTypeDTO measuringTypeDTO) {
         log.info ("LOG :: MeasuringTypeServiceImpl addOrUpdateMeasuringType()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();

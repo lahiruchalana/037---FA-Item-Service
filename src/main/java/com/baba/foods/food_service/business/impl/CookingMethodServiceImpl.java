@@ -9,6 +9,7 @@ import com.baba.foods.food_service.repository.CookingMethodRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ public class CookingMethodServiceImpl implements CookingMethodService {
 
     @Override
     @Description("Insert CookingMethod data or update CookingMethod data when pass the CookingMethodId")
+    @CacheEvict(value = "cookingMethod", allEntries = true )
     public ServiceResponseDTO addOrUpdateCookingMethod(CookingMethodDTO cookingMethodDTO) {
         log.info ("LOG :: CookingMethodServiceImpl addOrUpdateFood()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();

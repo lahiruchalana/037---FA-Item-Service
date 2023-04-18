@@ -9,6 +9,7 @@ import com.baba.foods.food_service.repository.NutritionInformationRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class NutritionInformationServiceImpl implements NutritionInformationServ
 
     @Override
     @Description("Insert NutritionInformation data or update NutritionInformation data when pass the NutritionInformationId")
+    @CacheEvict(value = "nutritionInformation", allEntries = true)
     public ServiceResponseDTO addOrUpdateNutritionInformation(NutritionInformationDTO nutritionInformationDTO) {
         log.info ("LOG :: NutritionInformationServiceImpl addOrUpdateNutritionInformation()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();

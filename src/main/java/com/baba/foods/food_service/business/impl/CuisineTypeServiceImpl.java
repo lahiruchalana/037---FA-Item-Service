@@ -9,6 +9,7 @@ import com.baba.foods.food_service.repository.CuisineTypeRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class CuisineTypeServiceImpl implements CuisineTypeService {
 
     @Override
     @Description("Insert CuisineType data or update CuisineType data when pass the CuisineTypeId")
+    @CacheEvict(value = "cuisineType", allEntries = true)
     public ServiceResponseDTO addOrUpdateCuisineType(CuisineTypeDTO cuisineTypeDTO) {
         log.info ("LOG :: CuisineTypeServiceImpl addOrUpdateCuisineType()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();

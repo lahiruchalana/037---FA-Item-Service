@@ -9,6 +9,7 @@ import com.baba.foods.food_service.repository.ThemeRepository;
 import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class ThemeServiceImpl implements ThemeService {
 
     @Override
     @Description("Insert Theme data or update Theme data when pass the ThemeId")
+    @CacheEvict(value = "theme", allEntries = true)
     public ServiceResponseDTO addOrUpdateTheme(ThemeDTO themeDTO) {
         log.info ("LOG :: ThemeServiceImpl addOrUpdateTheme()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
