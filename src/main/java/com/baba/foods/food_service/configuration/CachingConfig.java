@@ -19,6 +19,10 @@ public class CachingConfig {
 
     @Value("${redis.timeout.locationTime}")
     private Long location;
+
+    @Value("${redis.timeout.foodTime}")
+    private Long food;
+
     @Bean
     RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
         log.info("Log::CachingConfig redisCacheManagerBuilderCustomizer()");
@@ -26,12 +30,17 @@ public class CachingConfig {
             Map<String, RedisCacheConfiguration> configurationMap = new HashMap<>();
             configurationMap
                     .put("location", RedisCacheConfiguration.defaultCacheConfig()
-                            .entryTtl(Duration.ofSeconds(location))
+                            .entryTtl(Duration.ofMinutes(location))
                             .disableCachingNullValues()
                     );
             configurationMap
                     .put("autocomplete", RedisCacheConfiguration.defaultCacheConfig()
-                            .entryTtl(Duration.ofSeconds(autocomplete))
+                            .entryTtl(Duration.ofMinutes(autocomplete))
+                            .disableCachingNullValues()
+                    );
+            configurationMap
+                    .put("food", RedisCacheConfiguration.defaultCacheConfig()
+                            .entryTtl(Duration.ofMinutes(food))
                             .disableCachingNullValues()
                     );
 
