@@ -12,6 +12,7 @@ import jdk.jfr.Description;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,7 +54,7 @@ public class FoodServiceImpl implements FoodService {
      */
     @Override
     @Description("Insert food data")
-    @CacheEvict(value = "food", allEntries = true)
+    @CachePut(value = "food")
     public ServiceResponseDTO addOrUpdateFood(FoodDTO foodDTO) {
         log.info ("LOG :: FoodServiceImpl addNewFood()");
         ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
@@ -157,6 +158,7 @@ public class FoodServiceImpl implements FoodService {
     @Description("Additive added for a food, " +
             "One food exist only one additive, " +
             "So if there is a additive available for a particular food then it will be updated with new additive")
+    @CacheEvict(value = "food", allEntries = true)
     public ServiceResponseDTO addOrUpdateAdditiveForFood(Long foodId, AdditiveDTO additiveDTO) {
         log.info ("LOG :: FoodServiceImpl addAdditiveForFood()");
         Optional<Food> foodOptional = foodRepository.findById(foodId);
