@@ -7,6 +7,8 @@ public interface FoodService {
 
     ServiceResponseDTO addOrUpdateFood(FoodDTO foodDTO);
 
+    ServiceResponseDTO getFoodDataWithId(Long id);
+
     ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size);
 
     ServiceResponseDTO addOrUpdateAdditiveForFood(Long foodId, AdditiveDTO additiveDTO);
