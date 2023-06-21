@@ -92,6 +92,32 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @Description("Get food data with id")
+    @Cacheable(key = "#id", value = "food")
+    public ServiceResponseDTO getFoodDataWithId(Long id) {
+        log.info ("LOG :: FoodServiceImpl getFoodDataWithId()");
+        ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
+        try {
+            log.info ("LOG :: FoodServiceImpl getFoodDataWithId() inside the try");
+            Optional<Food> food = foodRepository.findById(id);
+            serviceResponseDTO.setData(food);
+            serviceResponseDTO.setCode(STATUS_2000);
+            serviceResponseDTO.setMessage(STATUS_SUCCESS);
+            serviceResponseDTO.setHttpStatus(HttpStatus.OK);
+            serviceResponseDTO.setDescription("Successfully received the data!!!");
+        } catch (Exception e) {
+            log.warn ("LOG :: FoodServiceImpl getFoodDataWithId() inside the catch");
+            log.warn(String.valueOf(e));
+            serviceResponseDTO.setError(e);
+            serviceResponseDTO.setMessage(STATUS_FAIL);
+            serviceResponseDTO.setCode(STATUS_5000);
+            serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            serviceResponseDTO.setDescription(e.getMessage());
+        }
+        return serviceResponseDTO;
+    }
+
+    @Override
     @Description("Get food data with pagination")
     @Cacheable(key = "#pageNumber.toString().concat(#size.toString())", value = "food")
     public ServiceResponseDTO getFoodDataWithPagination(Integer pageNumber, Integer size) {

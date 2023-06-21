@@ -52,13 +52,22 @@ public class FoodController {
         return foodService.addOrUpdateSmellTasteTextureForFood(foodId, smellTasteTextureDTO);
     }
 
-    @GetMapping("/get/page/{pageNumber}/size/{size}")
+    @GetMapping("/get")
     public ServiceResponseDTO getFoodDataWithPagination(
-            @PathVariable("pageNumber") Integer pageNumber,
-            @PathVariable("size") Integer size
+            @RequestParam("pageNumber") Integer pageNumber,
+            @RequestParam("size") Integer size
+    ) {
+        log.info("LOG :: FoodController getFoodDataWithPagination()");
+        return foodService.getFoodDataWithPagination(pageNumber, size);
+    }
+
+
+    @GetMapping("/get/id/{id}")
+    public ServiceResponseDTO getFoodDataWithId(
+            @PathVariable("id") Long id
     ) {
         log.info ("LOG :: FoodController getFoodDataWithPagination()");
-        return foodService.getFoodDataWithPagination(pageNumber, size);
+        return foodService.getFoodDataWithId(id);
     }
 
     /**

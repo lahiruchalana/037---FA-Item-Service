@@ -154,4 +154,16 @@ public class Food implements SuperEntity {
     public Food(Long foodId) {
         this.id = foodId;
     }
+
+    public Food(Long id, String name, Date createdDate, Date updatedDate) {
+        this.id = id;
+        this.name = name;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+    }
+
+    public Food(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
